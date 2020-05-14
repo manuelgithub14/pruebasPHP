@@ -12,24 +12,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $correo = $_POST['correo'];
 
         $user = Usuario::obtenerUsuarioPorCorreo($db, $correo);
-        
+
         if (!is_bool($user) && password_verify($_POST['password'], $user->getPassword()) && $user->getActivado()) {
             $user->login($user->getId());
         } else {
             $mensaje = 'Error, datos incorrectos';
         }
     }
-}else if(!empty ($_GET['id'])){
-    $result = Usuario::activarCuenta($db, $_GET['id']);
-    if($result){
-        $mensaje = 'Cuenta activada';
+} else if (!empty($_GET['id']) && !empty($_GET['token'])) {
+    $user = Usuario::obtenerUsuarioPorID($db, $_GET['id']);
+
+    if ($user->getToken() === $_GET['token']) {
+        $result = Usuario::activarCuenta($db, $_GET['id']);
+        if ($result) {
+            $mensaje = 'Cuenta activada';
+        } else {
+            $mensaje = 'Error al activar la cuenta';
+        }
     }else{
-        $mensaje = 'Error al activar la cuenta';
+        $mensaje = 'Error, enlace incorrecto';
     }
 }
 ?>
 
-<?php if (!empty($_GET['id']) ): ?>
+<?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
     <p>Gracias por registrarse. Ya puedes iniciar sesión</p>
 <?php endif; ?>
 <h1>Logueate</h1>

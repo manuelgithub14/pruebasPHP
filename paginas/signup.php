@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nombreMensajero' => 'Manuel J',
                 'destinatario' => $nuevoUser->getCorreo(),
                 'asunto' => 'Confirmar registro',
-                'mensaje' => '<a href="http://localhost/login?id=' . $nuevoUser->getId() . '">Pincha aquí para activar tu cuenta</a>',
+                'mensaje' => '<a href="http://localhost/login?id=' . $nuevoUser->getId() . '&token=' . $nuevoUser->getToken() . '">Pincha aquí para activar tu cuenta</a>',
                 'archivoAdjunto' => 'recursos/imagen.png',
             ];
             $correo = new Correo($datosCorreo);
