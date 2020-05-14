@@ -1,0 +1,6 @@
+{
+    "name": "manueljesus.maldonad",
+    "require": {
+        "phpmailer/phpmailer": "~6.1"
+    }
+}

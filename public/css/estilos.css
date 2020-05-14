@@ -1,0 +1,109 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button{
+    width: 5em;
+    margin-top: 1em;
+}
+
+h1{
+    font-size: 2em;
+}
+
+header{
+    text-decoration: none;
+}
+
+header a{
+    color: black;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+input[type="file"]{
+    width: 13em;
+}
+
+.principal{
+    display: flex;
+    flex-direction: column;
+}
+
+.secundario{
+    border: solid 2px tomato;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+    max-height: available;
+    width: 30em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.camposForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.camposForm *{
+    margin-top: 0.5em;
+}
+
+.navbar-end span{
+    margin-right: 1em;
+}
+
+.navbar-start a{
+    color: white;
+}
+
+.navbar-start li:hover{
+    background-color: orange;
+}
+
+.fotoArticulo{
+    width: 10em;
+}
+
+.bloqueArticulos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.articulo{
+    margin: 1em;
+    padding: 1em;
+    border: solid 0.2em red;
+}
+
+div.ck.ck-reset.ck-editor.ck-rounded-corners{
+    max-width: 25em;
+}
+
+#imgBienvenida{
+    width: 30em;
+    display: block;
+    margin: auto;
+}
+
+#errores{
+    font-size: 0.8em;
+}
