@@ -4,10 +4,8 @@ require 'vendor/autoload.php';
 define('MAIL_HOST', 'smtp.gmail.com');
 define('MAIL_CHARSET', 'UTF-8');
 define('SMTP_SECURE', 'tls');
-define('USUARIO_CORREO', 'manueljesusmb@gmail.com');
-define('PASSWORD_CORREO', 'laquetuquieras');
-//define('USUARIO_CORREO', 'unCorreo');
-//define('PASSWORD_CORREO', 'unaContraseña');
+define('USUARIO_CORREO', 'unCorreo');
+define('PASSWORD_CORREO', 'unaContraseña');
 
 session_start();
 $db = new mysqli('127.0.0.1', 'root', '', 'db_phpproject1');

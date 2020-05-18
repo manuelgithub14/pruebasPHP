@@ -9,7 +9,7 @@ if (isset($_SESSION['id_usuario'])) {
 
 <?php if (!empty($user)): ?>
     <?php include '../inc/menuNavegacion.php'; ?>
-    <p>Este es tu id: <?= $user['id_usuario'] ?></p>
+<p>Este es tu id: <?= $user->getId() ?></p>
     <a href="cambioPassword">Cambiar contraseña</a>
 <?php else: ?>
     <h1>BIENVENIDO</h1>

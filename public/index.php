@@ -23,6 +23,9 @@ switch ($pagina) {
     case 'recuperarPassword':
         require '../paginas/recuperarPassword.php';
         break;
+    case 'editarPerfil':
+        require '../paginas/editarPerfil.php';
+        break;
     case 'nuevoArticulo':
         require '../paginas/nuevoArticulo.php';
         break;

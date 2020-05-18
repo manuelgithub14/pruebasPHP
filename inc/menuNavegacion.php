@@ -9,13 +9,13 @@ if (isset($_SESSION['id_usuario'])) {
         <li class="navbar-item"><a href = "">Apartado 1</a></li>
         <li class="navbar-item"><a href = "articulos">Articulos</a></li>
         <?php if (!empty($user)): ?>
-            <?php if ($user['tipo'] === 'admin'): ?>
+            <?php if ($user->getTipo() === 'admin'): ?>
                 <li class="navbar-item"><a href = "nuevoArticulo">Crear Articulos</a></li>
             <?php endif; ?>
         <?php endif; ?>
     </ul>
     <div class="navbar-end">
-        <span>Bienvenido <?= htmlentities($user['correo']) ?></span>
+        <span>Bienvenido <a href="editarPerfil"><?= htmlentities($user->getCorreo()) ?></a></span>
         <a href="logout" class="button is-info">Salir</a>
     </div>
 </nav>

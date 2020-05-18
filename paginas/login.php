@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = Usuario::obtenerUsuarioPorCorreo($db, $correo);
 
         if (!is_bool($user) && password_verify($_POST['password'], $user->getPassword()) && $user->getActivado()) {
-            $user->login($user->getId());
+            $user->login($db, $user->getId());
         } else {
             $mensaje = 'Error, datos incorrectos';
         }

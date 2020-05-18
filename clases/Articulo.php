@@ -118,5 +118,21 @@ class Articulo {
             return false;
         }
     }
+    
+    public static function obtenerArticulosPaginados($db, $empieza, $por_pagina) {
+        $empiezaSql = $db->real_escape_string($empieza);
+        $por_paginaSql = $db->real_escape_string($por_pagina);
+        $result = $db->query("SELECT * FROM articulos LIMIT $por_paginaSql OFFSET $empiezaSql");
+        $articulos = [];
+
+        if ($result) {
+            while ($articulo = mysqli_fetch_assoc($result)) {
+                array_push($articulos, $articulo);
+            }
+            return $articulos;
+        } else {
+            return false;
+        }
+    }
 
 }

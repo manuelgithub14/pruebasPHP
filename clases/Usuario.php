@@ -104,20 +104,25 @@ class Usuario {
         }
     }
 
-    public function login($id) {
-        $_SESSION['id_usuario'] = $id;
+    public function login($db, $id) {
+        $idSql = $db->real_escape_string($id);
+        $_SESSION['id_usuario'] = $idSql;
         header('Location: /');
         exit();
     }
 
     public static function cambiarContraseña($db, $passAntiguo, $passNuevo, $passNuevoRep) {
         if (isset($_SESSION['id_usuario'])) {
+            $passAntiguoSql = $db->real_escape_string($passAntiguo);
+            $passNuevoSql = $db->real_escape_string($passNuevo);
+            $passNuevoRepSql = $db->real_escape_string($passNuevoRep);
+            
             $result = $db->query("SELECT password FROM usuarios WHERE id_usuario = '" . $_SESSION['id_usuario'] . "'");
             $passActual = $result->fetch_assoc();
 
-            if (password_verify($passAntiguo, $passActual['password'])) {
-                if ($passNuevo === $passNuevoRep) {
-                    $passNuevoCifrado = password_hash($passNuevo, PASSWORD_DEFAULT);
+            if (password_verify($passAntiguoSql, $passActual['password'])) {
+                if ($passNuevoSql === $passNuevoRepSql) {
+                    $passNuevoCifrado = password_hash($passNuevoSql, PASSWORD_DEFAULT);
                     $result = $db->query("UPDATE usuarios SET password = '$passNuevoCifrado' WHERE id_usuario = '" . $_SESSION['id_usuario'] . "'");
                     return true;
                 } else {
@@ -130,9 +135,13 @@ class Usuario {
     }
 
     public static function restablecerContraseña($db, $correo, $passNuevo, $passNuevoRep) {
-        if ($passNuevo === $passNuevoRep) {
-            $passNuevoCifrado = password_hash($passNuevo, PASSWORD_DEFAULT);
-            $result = $db->query("UPDATE usuarios SET password = '$passNuevoCifrado' WHERE correo = '" . $correo . "'");
+        $correoSql = $db->real_escape_string($correo);
+        $passNuevoSql = $db->real_escape_string($passNuevo);
+        $passNuevoRepSql = $db->real_escape_string($passNuevoRep);
+        
+        if ($passNuevoSql === $passNuevoRepSql) {
+            $passNuevoCifrado = password_hash($passNuevoSql, PASSWORD_DEFAULT);
+            $result = $db->query("UPDATE usuarios SET password = '$passNuevoCifrado' WHERE correo = '" . $correoSql . "'");
             return true;
         } else {
             return false;
@@ -157,21 +166,24 @@ class Usuario {
     }
 
     public static function obtenerUsuarioPorID($db, $id) {
+        $idSql = $db->real_escape_string($id);
+        
         $result = $db->query("SELECT * 
             FROM usuarios
-            WHERE id_usuario = '$id'
+            WHERE id_usuario = '$idSql'
         ");
 
-        $user = null;
-
         if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
+            $datosUser = $result->fetch_assoc();
+            return new Usuario($datosUser);
         }
-        return $user;
+        return false;
     }
     
     public static function activarCuenta($db, $id) {
-        $result = $db->query("UPDATE usuarios SET activado = 1 WHERE id_usuario = '" . $id . "'");
+        $idSql = $db->real_escape_string($id);
+        
+        $result = $db->query("UPDATE usuarios SET activado = 1 WHERE id_usuario = '" . $idSql . "'");
         if($result){
             return true;
         }else{
@@ -179,4 +191,5 @@ class Usuario {
         }
     }
 
+    
 }

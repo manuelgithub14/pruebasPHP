@@ -7,7 +7,7 @@ if (isset($_SESSION['id_usuario'])) {
     $user = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);
 }
 
-if ($user['tipo'] === 'admin') {
+if ($user->getTipo() === 'admin') {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_POST['titulo']) && !empty($_POST['texto']) && !empty($_FILES['imagen'])) {
             if ($_FILES['size'] <= 30000) {

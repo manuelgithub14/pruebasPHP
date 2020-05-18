@@ -3,17 +3,29 @@ $titulo = 'Articulos';
 $script = '';
 $mensaje = '';
 $articulos = Articulo::obtenerArticulos($db);
+$por_pagina = 2;
 
 if (!empty($articulos)) {
     ($articulos) ? $mensaje = '' : $mensaje = 'Error al obtener los articulos.';
+    $total_registros = count($articulos);
 }
+
+if (isset($_GET['pagina'])) {
+    $pagina = $_GET['pagina'];
+} else {
+    $pagina = 1;
+}
+
+$paginaInicio = ($pagina - 1) * $por_pagina;
+$total_paginas = ceil($total_registros / $por_pagina);
+$articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $por_pagina)
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
 <h1>ARTICULOS</h1>
 <div class="bloqueArticulos">
-    <?php if ($articulos): ?>
-        <?php foreach ($articulos as $articulo): ?>
+    <?php if ($articulos_paginados): ?>
+        <?php foreach ($articulos_paginados as $articulo): ?>
             <div class="articulo">
                 <p>Titulo: <?= $articulo['titulo'] ?></p>
                 <p>Texto: <?= $articulo['texto'] ?></p>
@@ -22,6 +34,11 @@ if (!empty($articulos)) {
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
+</div>
+<div>
+    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+        <a href='articulos?pagina=<?= $i ?>' ><?= $i ?></a>
+    <?php endfor; ?>
 </div>
 
 <?php if (!empty($articulos)): ?>
