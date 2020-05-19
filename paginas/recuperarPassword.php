@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Recuperar contraseña';
 $script = '';
+$cssPersonalizado = '';
 $mensaje = '';
 $permisoRecuperar = '';
 

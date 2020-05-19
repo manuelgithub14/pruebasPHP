@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Mi Inicio';
 $script = '';
+$cssPersonalizado = '';
 
 if (isset($_SESSION['id_usuario'])) {
     $user = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);

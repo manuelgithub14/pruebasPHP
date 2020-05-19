@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Página no encontrada';
 $script = '';
+$cssPersonalizado = '';
 ?>
 
 <div class="secundario">

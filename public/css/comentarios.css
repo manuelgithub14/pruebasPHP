@@ -1,0 +1,49 @@
+textarea{
+    border: solid silver 0.1em;
+}
+
+.bloqueDetallesArticulo{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+    text-align: start;
+}
+
+.fotoArticulo{
+    width: 20em;
+}
+
+.comentar{
+   border: solid red 0.1em;
+   margin: 1em;
+   padding: 1em;
+}
+
+.titulos{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+.tituloTexto{
+    font-weight: bold;
+}
+
+.textoComentarios{
+    border: solid silver 0.1em;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    padding: 1em;
+    width: 100%;
+}
+
+ p:first-child .textoComentarios{
+    font-weight: bold;
+    color: red;
+}
+
+input{
+    margin: 1em;
+}

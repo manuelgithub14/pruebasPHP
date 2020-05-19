@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Creación de articulos';
 $script = '/js/nuevosArticulos.js';
+$cssPersonalizado = '';
 $mensaje = '';
 
 if (isset($_SESSION['id_usuario'])) {

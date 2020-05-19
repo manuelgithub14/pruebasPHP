@@ -104,6 +104,23 @@ class Articulo {
         }
         return false;
     }
+    
+    public static function obtenerArticuloPorId($db, $id) {
+        $idSql = $db->real_escape_string($id);
+
+        $result = $db->query("SELECT * 
+            FROM articulos
+            WHERE id_articulo = '$idSql'
+        ");
+
+        $existentes = $result->num_rows;
+        $datosArticulo = $result->fetch_assoc();
+
+        if ($existentes > 0) {
+            return new Articulo($datosArticulo);
+        }
+        return false;
+    }
 
     public static function obtenerArticulos($db) {
         $result = $db->query("SELECT * FROM articulos");
@@ -111,7 +128,14 @@ class Articulo {
 
         if ($result) {
             while ($articulo = mysqli_fetch_assoc($result)) {
-                array_push($articulos, $articulo);
+                $datos = [
+                    'id' => $articulo['id_articulo'],
+                    'titulo' => $articulo['titulo'],
+                    'texto' => $articulo['texto'],
+                    'fecha' => $articulo['fecha'],
+                    'imagen' => $articulo['imagen'],
+                ];
+                array_push($articulos, new Articulo($datos));
             }
             return $articulos;
         } else {
@@ -127,7 +151,14 @@ class Articulo {
 
         if ($result) {
             while ($articulo = mysqli_fetch_assoc($result)) {
-                array_push($articulos, $articulo);
+                $datos = [
+                    'id' => $articulo['id_articulo'],
+                    'titulo' => $articulo['titulo'],
+                    'texto' => $articulo['texto'],
+                    'fecha' => $articulo['fecha'],
+                    'imagen' => $articulo['imagen'],
+                ];
+                array_push($articulos, new Articulo($datos));
             }
             return $articulos;
         } else {

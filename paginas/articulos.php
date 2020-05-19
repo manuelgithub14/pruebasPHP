@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Articulos';
 $script = '';
+$cssPersonalizado = '';
 $mensaje = '';
 $articulos = Articulo::obtenerArticulos($db);
 $por_pagina = 2;
@@ -27,10 +28,10 @@ $articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $
     <?php if ($articulos_paginados): ?>
         <?php foreach ($articulos_paginados as $articulo): ?>
             <div class="articulo">
-                <p>Titulo: <?= $articulo['titulo'] ?></p>
-                <p>Texto: <?= $articulo['texto'] ?></p>
-                <p>Fecha: <?= $articulo['fecha'] ?></p>
-                <img class="fotoArticulo" src="<?= $articulo['imagen'] ?>"/>
+                <p>Titulo: <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= $articulo->getTitulo() ?></a></p>
+                <p>Texto: <?= $articulo->getTexto() ?></p>
+                <p>Fecha: <?= $articulo->getFecha() ?></p>
+                <img class="fotoArticulo" src="<?= $articulo->getImagen() ?>"/>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

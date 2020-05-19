@@ -14,7 +14,10 @@
     <?php endif;?>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/estiloPrincipal.css">
+    <?php if($cssPersonalizado): ?>
+        <link rel="stylesheet" href="<?= $cssPersonalizado ?>">
+    <?php endif;?>
 </head>
 <body>
     <header>

@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Registrate';
 $script = '/js/signup.js';
+$cssPersonalizado = '';
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

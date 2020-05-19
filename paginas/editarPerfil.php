@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Editar perfil';
 $script = '';
+$cssPersonalizado = '';
 $mensaje = '';
 
 if (isset($_SESSION['id_usuario'])) {

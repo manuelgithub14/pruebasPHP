@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Cambiar password';
 $script = '/js/cambioPassword.js';
+$cssPersonalizado = '';
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

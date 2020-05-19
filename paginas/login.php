@@ -1,6 +1,7 @@
 <?php
 $titulo = 'Mi Login';
 $script = '/js/login.js';
+$cssPersonalizado = '';
 $mensaje = '';
 
 if (isset($_SESSION['id_usuario'])) {
