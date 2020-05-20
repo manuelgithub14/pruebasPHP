@@ -1,5 +1,5 @@
 <?php
-$titulo = 'Registrate';
+$titulo = 'Registrarse';
 $script = '/js/signup.js';
 $cssPersonalizado = '';
 $mensaje = '';
@@ -40,32 +40,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mensaje = 'Error al enviar el mensaje';
             }
 
-            header('Location: /login');
+            header('Location: /login?faltaActivar=1');
             exit();
         } else {
-            $mensaje = 'Ya estás registrado';
+            $mensaje = 'Ya est&aacute;s registrado';
         }
     }
 }
 ?>
 
-<h1>Registrate</h1>
-<span>o <a href="login">Logueate</a></span>
+<?php include '../inc/menuNavegacion.php'; ?>
+<h1>Registrarse</h1>
 
 <div class="secundario">
     <form method="post" id="formSignup">
         <span id="errores"></span>
         <div class="camposForm">
             <label>Correo: <input type="text" name="correo"/></label>
-            <label>Contraseña: <input type="password" name="password"/></label>
+            <label>Contrase&ntilde;a: <input type="password" name="password"/></label>
             <label>D.N.I.: <input type="text" name="dni"/></label>
             <label>Edad: <input type="text" name="edad"/></label>
         </div>
-        <input type="button" id="btnGuardar" value="Guardar"/>
+        <input type="submit" id="btnGuardar" value="Guardar"/>
     </form>
 </div>
 
 
 <?php if (!empty($mensaje)): ?>
-    <p><?= $mensaje ?></p>
+<p><?= htmlentities($mensaje) ?></p>
 <?php endif; ?>

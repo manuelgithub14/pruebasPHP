@@ -1,6 +1,6 @@
 <?php
-$titulo = 'Recuperar contraseña';
-$script = '';
+$titulo = 'Recuperar contrase&ntilde;a';
+$script = '/js/recuperarPassword.js';
 $cssPersonalizado = '';
 $mensaje = '';
 $permisoRecuperar = '';
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $result = Usuario::restablecerContraseña($db, $_GET['email'], $_POST['passNuevo'], $_POST['passRepNuevo']);
 
                     if (!empty($result)) {
-                        ($result) ? $mensaje = 'Contraseña cambiada.' : $mensaje = 'Las contraseñas no coinciden.';
+                        ($result) ? $mensaje = 'Contrase&ntilde;a cambiada.' : $mensaje = 'Las contrase&ntilde;as no coinciden.';
                     }
                 }
             } else {
@@ -53,24 +53,27 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
 }
 ?>
 
+<?php include '../inc/menuNavegacion.php'; ?>
+<h1>Recuperar contrase&ntilde;a</h1>
 <?php if ($permisoRecuperar): ?>
     <div class="secundario">
         <form method="post" id="formRecuperarPass">
-            <h1>Cambiar contraseña</h1>
+            <h1>Cambiar contrase&ntilde;a</h1>
             <span id="errores"></span>
             <div class="camposForm">
-                <label>Contraseña nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
-                <label>Repita contraseña nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
+                <label>Contrase&ntilde;a nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
+                <label>Repita contrase&ntilde;a nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
             </div>
             <input type="submit" id="btnRecuperarPass" value="Cambiar contraseña"/>
         </form>
     </div>
 <?php else: ?>
     <div class="secundario">
-        <form method="post" id="formSignup">
+        <h2>Introduce tu correo</h2>
+        <form method="post" id="formCorreo">
             <span id="errores"></span>
             <div class="camposForm">
-                <label>Correo: <input type="text" name="correo"/></label>
+                <label>Correo: <input type="text" name="correo" id="correo"/></label>
             </div>
             <input type="submit" id="btnRecuperarCorreo" value="Enviar"/>
         </form>
@@ -78,5 +81,5 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
 <?php endif; ?>
 
 <?php if (!empty($mensaje)): ?>
-    <p><?= $mensaje ?></p>
+<p><?= htmlentities($mensaje) ?></p>
 <?php endif; ?>

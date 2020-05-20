@@ -1,25 +1,26 @@
 <?php
-$titulo = 'Articulos';
+$titulo = 'Art&iacute;culo';
 $script = '';
 $cssPersonalizado = '';
 $mensaje = '';
 $articulos = Articulo::obtenerArticulos($db);
 $por_pagina = 2;
 
-if (!empty($articulos)) {
-    ($articulos) ? $mensaje = '' : $mensaje = 'Error al obtener los articulos.';
+if (!is_bool($articulos)) {
     $total_registros = count($articulos);
-}
 
-if (isset($_GET['pagina'])) {
-    $pagina = $_GET['pagina'];
+    if (isset($_GET['pagina'])) {
+        $pagina = $_GET['pagina'];
+    } else {
+        $pagina = 1;
+    }
+
+    $paginaInicio = ($pagina - 1) * $por_pagina;
+    $total_paginas = ceil($total_registros / $por_pagina);
+    $articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $por_pagina);
 } else {
-    $pagina = 1;
+    $mensaje = 'Error al obtener los art&iacute;culos.';
 }
-
-$paginaInicio = ($pagina - 1) * $por_pagina;
-$total_paginas = ceil($total_registros / $por_pagina);
-$articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $por_pagina)
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
@@ -28,10 +29,10 @@ $articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $
     <?php if ($articulos_paginados): ?>
         <?php foreach ($articulos_paginados as $articulo): ?>
             <div class="articulo">
-                <p>Titulo: <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= $articulo->getTitulo() ?></a></p>
-                <p>Texto: <?= $articulo->getTexto() ?></p>
-                <p>Fecha: <?= $articulo->getFecha() ?></p>
-                <img class="fotoArticulo" src="<?= $articulo->getImagen() ?>"/>
+                <p>T&iacute;tulo: <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= htmlentities($articulo->getTitulo()) ?></a></p>
+                <p>Texto: <?= htmlentities($articulo->getTexto()) ?></p>
+                <p>Fecha: <?= htmlentities($articulo->getFecha()) ?></p>
+                <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
@@ -43,7 +44,7 @@ $articulos_paginados = Articulo::obtenerArticulosPaginados($db, $paginaInicio, $
 </div>
 
 <?php if (!empty($articulos)): ?>
-    <p><?= $mensaje ?></p>
+    <p><?= htmlentities($mensaje) ?></p>
 <?php else: ?>
-    <p>Todavía no hay articulos.</p>
+    <p>Todav&iacute;a no hay art&iacute;culos.</p>
 <?php endif; ?>

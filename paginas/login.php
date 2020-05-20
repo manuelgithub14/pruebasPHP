@@ -14,8 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user = Usuario::obtenerUsuarioPorCorreo($db, $correo);
 
-        if (!is_bool($user) && password_verify($_POST['password'], $user->getPassword()) && $user->getActivado()) {
-            $user->login($db, $user->getId());
+        if (!is_bool($user) && password_verify($_POST['password'], $user->getPassword())) {
+            if ($user->getActivado()) {
+                $user->login($db, $user->getId());
+            } else {
+                $mensaje = 'Error, tienes que activar tu cuenta';
+            }
         } else {
             $mensaje = 'Error, datos incorrectos';
         }
@@ -30,20 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $mensaje = 'Error al activar la cuenta';
         }
-    }else{
+    } else {
         $mensaje = 'Error, enlace incorrecto';
     }
 }
 ?>
 
+<?php include '../inc/menuNavegacion.php'; ?>
 <?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
-    <p>Gracias por registrarse. Ya puedes iniciar sesión</p>
+    <p>Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
+<?php elseif (!empty($_GET['faltaActivar'])) : ?>
+    <p>Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
 <?php endif; ?>
 <h1>Logueate</h1>
-<span>o <a href="signup">Registrate</a></span>
 
 <?php if (!empty($mensaje)): ?>
-    <p><?= $mensaje ?></p>
+    <p><?= htmlentities($mensaje) ?></p>
 <?php endif; ?>
 
 <div class="secundario">
@@ -51,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <span id="errores"></span>
         <div class="camposForm">
             <label>Correo: <input type="text" name="correo" autofocus="true"/></label>
-            <label>Contraseña: <input type="password" name="password"/></label>
+            <label>Contrase&ntilde;a: <input type="password" name="password"/></label>
         </div>
-        <input type="button" id="btnSubmitLogin" value="Entrar"/>
+        <input type="submit" id="btnSubmitLogin" value="Entrar"/>
     </form>
 </div>
 

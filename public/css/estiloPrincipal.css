@@ -21,16 +21,6 @@ h1{
     font-size: 2em;
 }
 
-header{
-    text-decoration: none;
-}
-
-header a{
-    color: black;
-    font-weight: bold;
-    font-size: 1.5em;
-}
-
 input[type="file"]{
     width: 13em;
 }
@@ -70,12 +60,26 @@ input[type="file"]{
     margin-right: 1em;
 }
 
+.navbar-end a{
+    color: white;
+}
+
+.navbar-end a:hover{
+    color: #3273dc;
+}
+
 .navbar-start a{
     color: white;
 }
 
 .navbar-start li:hover{
     background-color: orange;
+}
+
+.logo{
+    max-width: 4em;
+    max-height: 4em;
+    margin-right: 1em;
 }
 
 .fotoArticulo{

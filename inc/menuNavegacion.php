@@ -1,21 +1,26 @@
 <?php
 if (isset($_SESSION['id_usuario'])) {
-    $user = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);
+    $usuarioNav = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);
 }
 ?>
 
 <nav class="navbar is-danger is-spaced">
     <ul class="navbar-start">
-        <li class="navbar-item"><a href = "">Apartado 1</a></li>
-        <li class="navbar-item"><a href = "articulos">Articulos</a></li>
-        <?php if (!empty($user)): ?>
-            <?php if ($user->getTipo() === 'admin'): ?>
-                <li class="navbar-item"><a href = "nuevoArticulo">Crear Articulos</a></li>
+        <a class="logo" href="/"><img src="recursos/logo.png"/></a>
+        <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
+            <li class="navbar-item"><a href = "articulos">Art&iacute;culos</a></li>
+            <?php if ($usuarioNav->getTipo() === 'admin'): ?>
+                <li class="navbar-item"><a href = "nuevoArticulo">Crear Art&iacute;culos</a></li>
             <?php endif; ?>
         <?php endif; ?>
     </ul>
     <div class="navbar-end">
-        <span>Bienvenido <a href="editarPerfil"><?= htmlentities($user->getCorreo()) ?></a></span>
-        <a href="logout" class="button is-info">Salir</a>
+        <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
+            <span>Bienvenido <a href="editarPerfil"><?= htmlentities($usuarioNav->getCorreo()) ?></a></span>
+            <a href="logout" class="button is-info">Salir</a>
+        <?php else : ?>
+            <a href="login">Loguearse</a><label>&nbsp; o &nbsp;</label>
+            <a href="signup"> Registrarse</a>
+        <?php endif; ?>
     </div>
 </nav>

@@ -39,11 +39,6 @@ textarea{
     width: 100%;
 }
 
- p:first-child .textoComentarios{
-    font-weight: bold;
-    color: red;
-}
-
 input{
     margin: 1em;
 }

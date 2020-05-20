@@ -1,27 +1,26 @@
-document.addEventListener("DOMContentLoaded", function(){
-    var btnCambiarPass = document.getElementById("btnCambiarPass");
-    btnCambiarPass.addEventListener("click", comprobarCambioPassword);
-});
-
-function comprobarCambioPassword(){
+document.addEventListener("DOMContentLoaded", function () {
     var miForm = document.getElementById("formCambioPassword");
-    var passActual = document.getElementById("passActual").value;
-    var passNuevo = document.getElementById("passNuevo").value;
-    var passNuevoRep = document.getElementById("passNuevoRep").value;
-    var mensajesErrores = "";
-    
-    if(passActual !== "" && passNuevo !== "" && passNuevoRep !== ""){
-        if(passNuevo !== passNuevoRep){
-            mensajesErrores += "<p>Las contraseñas no coinciden.</p>";
-        }
-    }else{
-        mensajesErrores += "<p>Las contraseñas no pueden estar vacias.</p>";
-    }
-    
-    if(mensajesErrores !== ""){
-        document.getElementById("errores").innerHTML = mensajesErrores;
-    }else{
-        miForm.submit();
-    }
-}
 
+    if (miForm) {
+        var passActual = document.getElementById("passActual").value;
+        var passNuevo = document.getElementById("passNuevo").value;
+        var passNuevoRep = document.getElementById("passNuevoRep").value;
+
+        miForm.addEventListener("submit", function (e) {
+            var mensajesErrores = "";
+            
+            if (passActual !== "" && passNuevo !== "" && passNuevoRep !== "") {
+                if (passNuevo !== passNuevoRep) {
+                    mensajesErrores += "<p>Las contrase&ntilde;as no coinciden.</p>";
+                }
+            } else {
+                mensajesErrores += "<p>Las contrase&ntilde;as no pueden estar vac&iacute;as.</p>";
+            }
+
+            if (mensajesErrores !== "") {
+                e.preventDefault();
+                document.getElementById("errores").innerHTML = mensajesErrores;
+            }
+        });
+    }
+});

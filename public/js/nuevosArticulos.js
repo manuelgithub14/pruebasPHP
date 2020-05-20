@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ClassicEditor
             .create(document.querySelector("#editor"), {
                 language: 'es',
-                placeholder: 'Escriba su artículo...',
+                placeholder: 'Escriba su art\u00edculo...',
                 toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
                 heading: {
                     options: [
@@ -12,36 +12,38 @@ document.addEventListener("DOMContentLoaded", function () {
                     ]
                 }
             })
-            .then(editor => {
-                console.log(editor);
+            .then(nuevoEditor => {
+                editor = nuevoEditor;
             })
             .catch(error => {
                 console.error(error);
             });
-
-    var btnCrearArticulo = document.getElementById("btnCrearArticulo");
-    btnCrearArticulo.addEventListener("click", comprobarArticulos);
-});
-
-function comprobarArticulos() {
+     
     var miForm = document.getElementById("formArticulos");
-    var misInputsText = miForm.querySelectorAll("input[type='text']");
-    var miImagen = miForm.querySelector("input[type='file']");
-    var mensajesErrores = "";
 
-    for (let i = 0; i < misInputsText.length; i++) {
-        if (misInputsText[i].value === "") {
-            mensajesErrores += "<p>" + misInputsText[i].name + " no puede estar vacío.</p>";
-        }
-    }
+    if (miForm) {
+        var miTitulo = miForm.querySelector("input[type='text']");
+        var miImagen = miForm.querySelector("input[type='file']");
 
-    if (miImagen.value === "") {
-        mensajesErrores += "<p>" + miImagen.name + " no puede estar vacío.</p>";
-    }
+        miForm.addEventListener("submit", function (e) {
+            var mensajesErrores = "";
+            
+            if(miTitulo.value === ""){
+                mensajesErrores += "<p>El t&iacute;tulo no puede estar vac&iacute;o.</p>";
+            }
+            
+            if (editor.getData() === "") {
+                mensajesErrores += "<p>El texto no puede estar vac&iacute;o.</p>";
+            }
 
-    if (mensajesErrores !== "") {
-        document.getElementById("errores").innerHTML = mensajesErrores;
-    } else {
-        miForm.submit();
+            if (miImagen.value === "") {
+                mensajesErrores += "<p>La imagen no puede estar vac&iacute;a.</p>";
+            }
+
+            if (mensajesErrores !== "") {
+                e.preventDefault();
+                document.getElementById("errores").innerHTML = mensajesErrores;
+            }
+        });
     }
-}
+});

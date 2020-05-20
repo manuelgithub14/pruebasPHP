@@ -1,6 +1,6 @@
 <?php
-$titulo = 'Articulo';
-$script = '';
+$titulo = 'Art&iacute;culo';
+$script = '/js/detallesArticulo.js';
 $cssPersonalizado = '/css/comentarios.css';
 $mensaje = '';
 
@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php include '../inc/menuNavegacion.php'; ?>
 <div class="bloqueDetallesArticulo">
     <div>
-        <p><label class="tituloTexto">Titulo: </label><?= $articulo->getTitulo() ?></p>
-        <p><label class="tituloTexto">Fecha: </label><?= $articulo->getFecha() ?></p>
-        <p><label class="tituloTexto">Texto: </label><?= $articulo->getTexto() ?></p>
+        <p><label class="tituloTexto">Titulo: </label><?= htmlentities($articulo->getTitulo()) ?></p>
+        <p><label class="tituloTexto">Fecha: </label><?= htmlentities($articulo->getFecha()) ?></p>
+        <p><label class="tituloTexto">Texto: </label><?= htmlentities($articulo->getTexto()) ?></p>
     </div>
-    <img class="fotoArticulo" src="<?= $articulo->getImagen() ?>"/>
+    <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
 </div>
 
 <!-- COMENTARIOS Y RESPUESTAS-->
@@ -75,12 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <!-- OBTENER USUARIO DE ESTE COMENTARIO-->
             <?php $usuario = Usuario::obtenerUsuarioPorID($db, $comentario->getIdUsuario()) ?>
+            <span id="errores"></span>
             <div class="comentar" >
-                <form id="formRespuestaComentario" method="POST">
+                <form id="formRespuestaResp" method="POST">
                     <label class="titulos">COMENTARIO</label>
                     <p class="textoComentarios">
-                        <label class="tituloTexto"><?= $usuario->getCorreo() ?></label>
-                        <label><?= $comentario->getTexto() ?></label>
+                        <label class="tituloTexto"><?= htmlentities($usuario->getCorreo()) ?></label>
+                        <label><?= htmlentities($comentario->getTexto()) ?></label>
                     </p>
 
                     <!-- OBTENER RESPUESTAS A ESTE COMENTARIO-->
@@ -91,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- OBTENER USUARIO DE ESTA RESPUESTA -->
                         <?php $usuarioResponde = Usuario::obtenerUsuarioPorID($db, $respuesta->getIdUsuario()) ?>
                         <p class="textoComentarios">
-                            <label class="tituloTexto"><?= $usuarioResponde->getCorreo() ?></label>
-                            <label><?= $respuesta->getTexto() ?></label>
+                            <label class="tituloTexto"><?= htmlentities($usuarioResponde->getCorreo()) ?></label>
+                            <label><?= htmlentities($respuesta->getTexto()) ?></label>
                         </p>
 
                         <!-- OBTENER RESPUESTAS DE ESTA RESPUESTA -->
@@ -102,8 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <!-- OBTENER USUARIO DE ESTA RESPUESTA -->
                             <?php $usuarioRespondeRes = Usuario::obtenerUsuarioPorID($db, $respuestaRes->getIdUsuario()) ?>
                             <p class="textoComentarios">
-                                <label class="tituloTexto"><?= $usuarioRespondeRes->getCorreo() ?></label>
-                                <label><?= $respuestaRes->getTexto() ?></label>
+                                <label class="tituloTexto"><?= htmlentities($usuarioRespondeRes->getCorreo()) ?></label>
+                                <label><?= htmlentities($respuestaRes->getTexto()) ?></label>
                             </p>
 
                         <?php endforeach; ?>
@@ -111,27 +112,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- PERMITIR RESPONDER A QUIEN NO HIZO LA RESPUESTA -->
                         <?php if ($_SESSION['id_usuario'] !== $respuesta->getIdUsuario()): ?>
                             <input type="hidden" name="idRespuesta" value="<?= $respuesta->getId() ?>"/>
-                            <textarea name="textoRespuestaRes" rows="4" cols="60" maxlength="255"></textarea>
+                            <textarea name="textoRespuestaRes" rows="4" cols="60" maxlength="255" id="textRespuestaResp"></textarea>
                             <input type="submit" value="Responder" id="btnResponderRespuesta"/>
                         <?php endif; ?>
                     <?php endforeach; ?>
-
-                    <!-- PERMITIR RESPONDER A QUIEN NO HIZO EL COMENTARIO -->
-                    <?php if ($_SESSION['id_usuario'] !== $comentario->getIdUsuario()): ?>
-                        <input type="hidden" name="idComentario" value="<?= $comentario->getId() ?>"/>
-                        <textarea name="textoRespuesta" rows="4" cols="60" maxlength="255"></textarea>
-                        <input type="submit" value="Responder" id="btnResponderComentario"/>
-                    <?php endif; ?>
                 </form>
+
+                <!-- PERMITIR RESPONDER A QUIEN NO HIZO EL COMENTARIO -->
+                <?php if ($_SESSION['id_usuario'] !== $comentario->getIdUsuario()): ?>
+                    <form id="formRespuestaComentario" method="POST">
+                        <input type="hidden" name="idComentario" value="<?= $comentario->getId() ?>"/>
+                        <textarea name="textoRespuesta" rows="4" cols="60" maxlength="255" id="textRespuesta"></textarea>
+                        <input type="submit" value="Responder" id="btnResponderComentario"/>
+                    </form>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
 
     <!-- ZONA PARA COMENTAR-->
     <div class="comentar">
-        <label class="titulos">AÑADE UN COMENTARIO</label>
+        <label class="titulos">A&Ntilde;ADE UN COMENTARIO</label>
         <form id="formComentario" method="POST" >
-            <textarea name="textoComentario" rows="4" cols="60" maxlength="255"></textarea>
+            <textarea name="textoComentario" rows="4" cols="60" maxlength="255" id="textComentario"></textarea>
             <div>
                 <input type="submit" value="Comentar"/>
             </div>
@@ -140,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 
 <?php if (!empty($comentarios)): ?>
-    <p><?= $mensaje ?></p>
+<p><?= htmlentities($mensaje) ?></p>
 <?php else: ?>
-    <p>Todavía no hay comentarios.</p>
+    <p>Todav&iacute;a no hay comentarios.</p>
 <?php endif; ?>

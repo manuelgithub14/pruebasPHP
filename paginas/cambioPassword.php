@@ -10,23 +10,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 if (!empty($result)) {
-    ($result) ? $mensaje = 'Contraseña cambiada.' : $mensaje = 'Las contraseñas no coinciden.';
+    ($result) ? $mensaje = 'Contrase&ntilde;a cambiada.' : $mensaje = 'Las contrase&ntilde;as no coinciden.';
 }
 ?>
 
-<h1>Cambiar contraseña</h1>
+<?php include '../inc/menuNavegacion.php'; ?>
+<h1>Cambiar contrase&ntilde;a</h1>
 <div class="secundario">
     <form method="post" id="formCambioPassword">
         <span id="errores"></span>
         <div class="camposForm">
-            <label>Contraseña antigua: <input type="password" name="passAntiguo" autofocus="true" id="passActual"/></label>
-            <label>Contraseña nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
-            <label>Repita contraseña nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
+            <label>Contrase&ntilde;a antigua: <input type="password" name="passAntiguo" autofocus="true" id="passActual"/></label>
+            <label>Contrase&ntilde;a nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
+            <label>Repita contrase&ntilde;a nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
         </div>
-        <input type="button" id="btnCambiarPass" value="Cambiar"/>
+        <input type="submit" id="btnCambiarPass" value="Cambiar"/>
     </form>
 </div>
 
 <?php if (!empty($result)): ?>
-    <p><?= $mensaje ?></p>
+<p><?= htmlentities($mensaje) ?></p>
 <?php endif; ?>
