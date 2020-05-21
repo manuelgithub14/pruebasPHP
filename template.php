@@ -25,8 +25,8 @@
         <div class="principal">
             <?= $body ?>
         </div>
-        <div class="pie">
-
-        </div>
+        <footer class="navbar is-danger">
+            <p>Aplicaci&oacute;n con PHP</p>
+        </footer>
     </body>
 </html>

@@ -10,7 +10,7 @@ if (!is_bool($articulos)) {
     $total_registros = count($articulos);
 
     if (isset($_GET['pagina'])) {
-        $pagina = $_GET['pagina'];
+        $pagina = (int) $_GET['pagina'];
     } else {
         $pagina = 1;
     }
@@ -21,30 +21,53 @@ if (!is_bool($articulos)) {
 } else {
     $mensaje = 'Error al obtener los art&iacute;culos.';
 }
+
+if (isset($_SESSION['id_usuario'])) {
+    $logueado = true;
+} else {
+    $logueado = false;
+}
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
-<h1>ARTICULOS</h1>
-<div class="bloqueArticulos">
-    <?php if ($articulos_paginados): ?>
-        <?php foreach ($articulos_paginados as $articulo): ?>
-            <div class="articulo">
-                <p>T&iacute;tulo: <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= htmlentities($articulo->getTitulo()) ?></a></p>
-                <p>Texto: <?= htmlentities($articulo->getTexto()) ?></p>
-                <p>Fecha: <?= htmlentities($articulo->getFecha()) ?></p>
-                <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
-            </div>
-        <?php endforeach; ?>
+<main>
+    <?php if ($logueado): ?>
+        <?php include '../inc/menuAside.php'; ?>
     <?php endif; ?>
-</div>
-<div>
-    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-        <a href='articulos?pagina=<?= $i ?>' ><?= $i ?></a>
-    <?php endfor; ?>
-</div>
+    <section>
+        <h1>Art&iacute;culos</h1>
+        <div class="bloqueArticulos">
+            <?php if ($articulos_paginados): ?>
+                <?php foreach ($articulos_paginados as $articulo): ?>
+                    <div class="articulo">
+                        <p>T&iacute;tulo: 
+                            <?php if ($logueado): ?>
+                                <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= htmlentities($articulo->getTitulo()) ?></a>
+                            <?php else : ?>
+                                <?= htmlentities($articulo->getTitulo()) ?>
+                            <?php endif; ?>
+                        </p>
+                        <p>Fecha: <?= htmlentities($articulo->getFecha()) ?></p>
+                        <p>Texto: <?= htmlentities($articulo->getTexto()) ?></p>
+                        <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <div class="paginador">
+            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                <?php if ($pagina === $i): ?>
+                    <a class="pagination-link is-current"><?= $i ?></a>
+                <?php else: ?>
+                    <a class="pagination-link" href='articulos?pagina=<?= $i ?>' ><?= $i ?></a>
+                <?php endif; ?>
+            <?php endfor; ?>
+        </div>
 
-<?php if (!empty($articulos)): ?>
-    <p><?= htmlentities($mensaje) ?></p>
-<?php else: ?>
-    <p>Todav&iacute;a no hay art&iacute;culos.</p>
-<?php endif; ?>
+        <?php if (!empty($articulos)): ?>
+            <p><?= htmlentities($mensaje) ?></p>
+        <?php else: ?>
+            <p>Todav&iacute;a no hay art&iacute;culos.</p>
+        <?php endif; ?>
+    </section>
+</main>

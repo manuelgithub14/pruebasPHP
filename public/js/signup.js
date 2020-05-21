@@ -4,35 +4,88 @@ document.addEventListener("DOMContentLoaded", function () {
     if (miForm) {
         var miPassword = miForm.querySelector("input[type='password']");
         var misInputsText = miForm.querySelectorAll("input[type='text']");
-        var salida = true;
+        var infoCorreo = document.getElementById("infoCorreo");
+        var infoPassword = document.getElementById("infoPassword");
+        var infoDni = document.getElementById("infoDni");
+        var infoEdad = document.getElementById("infoEdad");
+        var correoContieneDanger = "";
+        var dniContieneDanger = "";
+        var edadContieneDanger = "";
 
         miForm.addEventListener("submit", function (e) {
-            var mensajeErrores = "";
-            
             if (miPassword.value === "") {
-                mensajeErrores += "<p>Contrase&ntilde;a inv&aacute;lida.</p>";
+                miPassword.classList.remove("is-success");
+
+                miPassword.classList.add("is-danger");
+                infoPassword.textContent = "Contrase\u00f1a inv\u00e1lida";
+                infoPassword.classList.add("is-danger");
+            } else {
+                miPassword.classList.remove("is-danger");
+                infoPassword.textContent = "";
+                infoPassword.classList.remove("is-danger");
+
+                miPassword.classList.add("is-success");
             }
 
             for (let i = 0; i < misInputsText.length; i++) {
                 switch (misInputsText[i].name) {
                     case "correo":
-                        salida = /^[a-z][\w\.]*@[\w\.]+\.[a-z]{2,3}/i.test(misInputsText[i].value);
+                        if (/^[a-z][\w\.]*@[\w\.]+\.[a-z]{2,3}/i.test(misInputsText[i].value)) {
+                            misInputsText[i].classList.remove("is-danger");
+                            infoCorreo.textContent = "";
+                            infoCorreo.classList.remove("is-danger");
+
+                            misInputsText[i].classList.add("is-success");
+                            correoContieneDanger = false;
+                        } else {
+                            misInputsText[i].classList.remove("is-success");
+
+                            misInputsText[i].classList.add("is-danger");
+                            infoCorreo.textContent = "Correo inv\u00e1lido";
+                            infoCorreo.classList.add("is-danger");
+                            correoContieneDanger = true;
+                        }
                         break;
                     case "dni":
-                        salida = /^[0-9]{8}[a-z]{1}$/i.test(misInputsText[i].value);
+                        if (/^[0-9]{8}[a-z]{1}$/i.test(misInputsText[i].value)) {
+                            misInputsText[i].classList.remove("is-danger");
+                            infoDni.textContent = "";
+                            infoDni.classList.remove("is-danger");
+
+                            misInputsText[i].classList.add("is-success");
+                            dniContieneDanger = false;
+                        } else {
+                            misInputsText[i].classList.remove("is-success");
+
+                            misInputsText[i].classList.add("is-danger");
+                            infoDni.textContent = "DNI inv\u00e1lido";
+                            infoDni.classList.add("is-danger");
+                            dniContieneDanger = true;
+                        }
                         break;
                     case "edad":
-                        (isNaN(misInputsText[i].value) || misInputsText[i].value === "") ? salida = false : salida = true;
+                        if (isNaN(misInputsText[i].value) || misInputsText[i].value === "") {
+                            misInputsText[i].classList.remove("is-success");
+
+                            misInputsText[i].classList.add("is-danger");
+                            infoEdad.textContent = "Edad inv\u00e1lida";
+                            infoEdad.classList.add("is-danger");
+                            edadContieneDanger = true;
+                        } else {
+                            misInputsText[i].classList.remove("is-danger");
+                            infoEdad.textContent = "";
+                            infoEdad.classList.remove("is-danger");
+
+                            misInputsText[i].classList.add("is-success");
+                            edadContieneDanger = false;
+                        }
                         break;
-                }
-                if (!salida) {
-                    mensajeErrores += "<p>" + misInputsText[i].name + " inv&aacute;lido.</p>";
                 }
             }
 
-            if (mensajeErrores !== "") {
+            if (correoContieneDanger || miPassword.classList.contains("is-danger") || 
+                    dniContieneDanger || edadContieneDanger ) {
                 e.preventDefault();
-                document.getElementById("errores").innerHTML = mensajeErrores;
             }
         });
     }

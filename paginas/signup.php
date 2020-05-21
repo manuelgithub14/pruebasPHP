@@ -54,18 +54,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="secundario">
     <form method="post" id="formSignup">
-        <span id="errores"></span>
-        <div class="camposForm">
-            <label>Correo: <input type="text" name="correo"/></label>
-            <label>Contrase&ntilde;a: <input type="password" name="password"/></label>
-            <label>D.N.I.: <input type="text" name="dni"/></label>
-            <label>Edad: <input type="text" name="edad"/></label>
+        <div class="field">
+            <label class="label">Correo</label>
+            <input type="text" class="input" name="correo"/>
+            <p class="help" id="infoCorreo"></p>
         </div>
-        <input type="submit" id="btnGuardar" value="Guardar"/>
+        <div class="field">
+            <label class="label">Contrase&ntilde;a</label>
+            <input type="password" class="input" name="password"/>
+            <p class="help" id="infoPassword"></p>
+        </div>
+        <div class="field">
+            <label class="label">D.N.I.</label>
+            <input type="text" class="input" name="dni"/>
+            <p class="help" id="infoDni"></p>
+        </div>
+        <div class="field">
+            <label class="label">Edad</label>
+            <input type="text" class="input" name="edad"/>
+            <p class="help" id="infoEdad"></p>
+        </div>
+        <input type="submit" class="button is-danger" id="btnGuardar" value="Guardar"/>
     </form>
 </div>
 
-
 <?php if (!empty($mensaje)): ?>
-<p><?= htmlentities($mensaje) ?></p>
+    <p><?= htmlentities($mensaje) ?></p>
 <?php endif; ?>

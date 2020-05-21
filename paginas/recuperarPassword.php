@@ -59,23 +59,32 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
     <div class="secundario">
         <form method="post" id="formRecuperarPass">
             <h1>Cambiar contrase&ntilde;a</h1>
-            <span id="errores"></span>
             <div class="camposForm">
-                <label>Contrase&ntilde;a nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
-                <label>Repita contrase&ntilde;a nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
+                <div class="field">
+                    <label class="label">Contrase&ntilde;a nueva</label>
+                    <input type="password" class="input" name="passNuevo" id="passNuevo"/>
+                    <p class="help" id="infoPasswordNuevo"></p>
+                </div>
+                <div class="field">
+                    <label class="label">Repita contrase&ntilde;a nueva</label>
+                    <input type="password" class="input" name="passRepNuevo" id="passNuevoRep"/>
+                    <p class="help" id="infoPasswordNuevoRep"></p>
+                </div>
             </div>
-            <input type="submit" id="btnRecuperarPass" value="Cambiar contraseña"/>
+            <input type="submit" class="button is-danger" id="btnRecuperarPass" value="Cambiar contraseña"/>
         </form>
     </div>
 <?php else: ?>
     <div class="secundario">
-        <h2>Introduce tu correo</h2>
         <form method="post" id="formCorreo">
-            <span id="errores"></span>
             <div class="camposForm">
-                <label>Correo: <input type="text" name="correo" id="correo"/></label>
+                <div class="field">
+                    <label class="label">Correo</label>
+                    <input type="text" class="input" name="correo" id="correo"/>
+                    <p class="help" id="infoCorreo"></p>
+                </div>
             </div>
-            <input type="submit" id="btnRecuperarCorreo" value="Enviar"/>
+            <input type="submit" class="button is-danger" id="btnRecuperarCorreo" value="Enviar"/>
         </form>
     </div>
 <?php endif; ?>

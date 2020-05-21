@@ -54,12 +54,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="secundario">
     <form method="post" id="formLogin" >
-        <span id="errores"></span>
-        <div class="camposForm">
-            <label>Correo: <input type="text" name="correo" autofocus="true"/></label>
-            <label>Contrase&ntilde;a: <input type="password" name="password"/></label>
+        <div class="field">
+            <label class="label">Correo</label>
+            <input type="text" class="input" name="correo" autofocus="true"/>
+            <p class="help" id="infoCorreo"></p>
         </div>
-        <input type="submit" id="btnSubmitLogin" value="Entrar"/>
+        <div class="field">
+            <label class="label">Contrase&ntilde;a</label>
+            <input type="password" class="input" name="password"/>
+            <p class="help" id="infoPassword"></p>
+        </div>
+
+        <input type="submit" class="button is-danger" id="btnSubmitLogin" value="Entrar"/>
     </form>
 </div>
-
+<h2><a href="recuperarPassword">Recuperar contrase&ntilde;a</a></h2>

@@ -2,13 +2,14 @@
 if (isset($_SESSION['id_usuario'])) {
     $usuarioNav = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);
 }
+//width="60" height="50"
 ?>
 
 <nav class="navbar is-danger is-spaced">
     <ul class="navbar-start">
-        <a class="logo" href="/"><img src="recursos/logo.png"/></a>
+        <a class="navbar-item" href="/"><img src="recursos/logo.png" class="logo"/></a>
+        <li class="navbar-item"><a href = "articulos?pagina=1">Art&iacute;culos</a></li>
         <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
-            <li class="navbar-item"><a href = "articulos">Art&iacute;culos</a></li>
             <?php if ($usuarioNav->getTipo() === 'admin'): ?>
                 <li class="navbar-item"><a href = "nuevoArticulo">Crear Art&iacute;culos</a></li>
             <?php endif; ?>

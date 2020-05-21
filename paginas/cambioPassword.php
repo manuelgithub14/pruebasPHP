@@ -15,19 +15,33 @@ if (!empty($result)) {
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
-<h1>Cambiar contrase&ntilde;a</h1>
-<div class="secundario">
-    <form method="post" id="formCambioPassword">
-        <span id="errores"></span>
-        <div class="camposForm">
-            <label>Contrase&ntilde;a antigua: <input type="password" name="passAntiguo" autofocus="true" id="passActual"/></label>
-            <label>Contrase&ntilde;a nueva: <input type="password" name="passNuevo" id="passNuevo"/></label>
-            <label>Repita contrase&ntilde;a nueva: <input type="password" name="passRepNuevo" id="passNuevoRep"/></label>
+<main>
+    <?php include '../inc/menuAside.php'; ?>
+    <section>
+        <h1>Cambiar contrase&ntilde;a</h1>
+        <div class="secundario">
+            <form method="post" id="formCambioPassword">
+                <div class="field">
+                    <label class="label">Contrase&ntilde;a antigua</label>
+                    <input type="password" class="input" name="passAntiguo" autofocus="true" id="passActual"/>
+                    <p class="help" id="infoPassAntiguo"></p>
+                </div>
+                <div class="field">
+                    <label class="label">Contrase&ntilde;a nueva</label>
+                    <input type="password" class="input" name="passNuevo" id="passNuevo"/>
+                    <p class="help" id="infoPassNuevo"></p>
+                </div>
+                <div class="field">
+                    <label class="label">Repita contrase&ntilde;a nueva</label>
+                    <input type="password" class="input" name="passRepNuevo" id="passNuevoRep"/>
+                    <p class="help" id="infoPassNuevoRep"></p>
+                </div>
+                <input type="submit" class="button is-danger" id="btnCambiarPass" value="Cambiar"/>
+            </form>
         </div>
-        <input type="submit" id="btnCambiarPass" value="Cambiar"/>
-    </form>
-</div>
 
-<?php if (!empty($result)): ?>
-<p><?= htmlentities($mensaje) ?></p>
-<?php endif; ?>
+        <?php if (!empty($result)): ?>
+            <p><?= htmlentities($mensaje) ?></p>
+        <?php endif; ?>
+    </section>
+</main>

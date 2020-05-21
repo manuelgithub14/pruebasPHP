@@ -1,5 +1,5 @@
 textarea{
-    border: solid silver 0.1em;
+    border: solid blue 0.1em;
 }
 
 .bloqueDetallesArticulo{
@@ -17,16 +17,7 @@ textarea{
    border: solid red 0.1em;
    margin: 1em;
    padding: 1em;
-}
-
-.titulos{
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 0.5em;
-}
-
-.tituloTexto{
-    font-weight: bold;
+   text-align: center;
 }
 
 .textoComentarios{

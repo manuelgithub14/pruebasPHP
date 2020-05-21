@@ -47,20 +47,39 @@ if ($user->getTipo() === 'admin') {
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
-<div class="secundario">
-    <form enctype="multipart/form-data" method="post" id="formArticulos">
-        <h1>Crear articulos</h1>
-        <span id="errores"></span>
-        <div class="camposForm">
-            <label>T&iacute;tulo: <input type="text" name="titulo"/></label>
-            <label>Texto: <textarea id="editor" name="texto" rows="4" cols="22"></textarea></label>
-            <label>Fecha: <input type="date" name="fecha" placeholder="dd-mm-aaaa"/></label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
-            <label>Imagen: <input type="file" name="imagen"/></label>
+<main>
+    <?php include '../inc/menuAside.php'; ?>
+    <section>
+        <h1>Crear art&iacute;culos</h1>
+        <div class="secundario">
+            <form enctype="multipart/form-data" method="post" id="formArticulos">
+                <div>
+                    <div class="field">
+                        <label class="label">T&iacute;tulo</label>
+                        <input type="text" class="input" name="titulo"/>
+                        <p class="help" id="infoTitulo"></p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Texto</label>
+                        <textarea id="editor" class="textarea" name="texto" rows="4" cols="22"></textarea>
+                        <p class="help" id="infoTexto"></p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Fecha</label>
+                        <input type="date" class="input" name="fecha" placeholder="dd-mm-aaaa"/>
+                    </div>
+                    <div class="field">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
+                        <label class="label">Imagen</label>
+                        <input type="file" class="input" name="imagen"/>
+                        <p class="help" id="infoImagen"></p>
+                    </div>
+                </div>
+                <input type="submit" class="button is-danger" id="btnCrearArticulo" value="Crear art&iacute;culo"/>
+            </form>
         </div>
-        <input type="submit" id="btnCrearArticulo" value="Crear art&iacute;culo"/>
-    </form>
-</div>
-<?php if (!empty($mensaje)): ?>
-    <p><?= htmlentities($mensaje) ?></p>
-<?php endif; ?>
+        <?php if (!empty($mensaje)): ?>
+            <p><?= htmlentities($mensaje) ?></p>
+        <?php endif; ?>
+    </section>
+</main>
