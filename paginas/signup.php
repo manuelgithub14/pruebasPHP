@@ -79,5 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 
 <?php if (!empty($mensaje)): ?>
-    <p><?= htmlentities($mensaje) ?></p>
+    <p class="mensaje"><?= $mensaje ?></p>
 <?php endif; ?>

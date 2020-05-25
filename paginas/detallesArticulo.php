@@ -152,9 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <?php if (!empty($comentarios)): ?>
-            <p><?= htmlentities($mensaje) ?></p>
+            <p class="mensaje"><?= $mensaje ?></p>
         <?php else: ?>
-            <p>Todav&iacute;a no hay comentarios.</p>
+            <p class="mensaje">Todav&iacute;a no hay comentarios.</p>
         <?php endif; ?>
     </section>
 </main>

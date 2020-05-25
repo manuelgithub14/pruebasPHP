@@ -2,7 +2,6 @@
 if (isset($_SESSION['id_usuario'])) {
     $usuarioNav = Usuario::obtenerUsuarioPorID($db, $_SESSION['id_usuario']);
 }
-//width="60" height="50"
 ?>
 
 <nav class="navbar is-danger is-spaced">

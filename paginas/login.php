@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <h1>Logueate</h1>
 
 <?php if (!empty($mensaje)): ?>
-    <p><?= htmlentities($mensaje) ?></p>
+    <p class="mensaje"><?= $mensaje ?></p>
 <?php endif; ?>
 
 <div class="secundario">

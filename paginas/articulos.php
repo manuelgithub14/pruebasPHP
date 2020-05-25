@@ -65,9 +65,9 @@ if (isset($_SESSION['id_usuario'])) {
         </div>
 
         <?php if (!empty($articulos)): ?>
-            <p><?= htmlentities($mensaje) ?></p>
+            <p class="mensaje"><?= $mensaje ?></p>
         <?php else: ?>
-            <p>Todav&iacute;a no hay art&iacute;culos.</p>
+            <p class="mensaje">Todav&iacute;a no hay art&iacute;culos.</p>
         <?php endif; ?>
     </section>
 </main>

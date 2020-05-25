@@ -79,7 +79,7 @@ if ($user->getTipo() === 'admin') {
             </form>
         </div>
         <?php if (!empty($mensaje)): ?>
-            <p><?= htmlentities($mensaje) ?></p>
+        <p class="mensaje"><?= $mensaje ?></p>
         <?php endif; ?>
     </section>
 </main>

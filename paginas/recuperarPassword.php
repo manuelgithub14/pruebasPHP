@@ -90,5 +90,5 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
 <?php endif; ?>
 
 <?php if (!empty($mensaje)): ?>
-<p><?= htmlentities($mensaje) ?></p>
+<p class="mensaje"><?= $mensaje ?></p>
 <?php endif; ?>

@@ -41,7 +41,7 @@ if (!empty($result)) {
         </div>
 
         <?php if (!empty($result)): ?>
-            <p><?= htmlentities($mensaje) ?></p>
+            <p class="mensaje"><?= $mensaje ?></p>
         <?php endif; ?>
     </section>
 </main>

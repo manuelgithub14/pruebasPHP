@@ -9,13 +9,19 @@ if (isset($_SESSION['id_usuario'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    if (!empty($_POST['edad']) /*&& $user->getCorreo() === $_POST['correo']*/ && $user->getDni() === $_POST['dni']) {
-        $user->setEdad($_POST['edad']);
-        if ($user->guardar($db)) {
-            $mensaje = 'Datos actualizados';
+
+    if (!empty($_POST['edad']) && !empty($_POST['correo']) && !empty($_POST['dni'])) {
+        
+        if ($user->getCorreo() === $_POST['correo'] && $user->getDni() === $_POST['dni']) {
+            $user->setEdad($_POST['edad']);
+            
+            if ($user->guardar($db)) {
+                $mensaje = 'Datos actualizados';
+            } else {
+                $mensaje = 'Error al actualizar los datos';
+            }
         } else {
-            $mensaje = 'Error al actualizar los datos';
+            $mensaje = 'No se puede cambiar el correo ni el DNI';
         }
     }
 }
@@ -48,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <?php if (!empty($mensaje)): ?>
-            <p><?= htmlentities($mensaje) ?></p>
+            <p class="mensaje"><?= $mensaje ?></p>
         <?php endif; ?>
     </section>
 </main>
