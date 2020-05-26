@@ -63,8 +63,9 @@ input[type="submit"]{
     width: 25em;
 }
 
-.navbar-end span{
+.navbar-end .button{
     margin-right: 1em;
+    margin-left: 1em;
 }
 
 .navbar-end a, .navbar-start a{
@@ -73,6 +74,10 @@ input[type="submit"]{
 
 .navbar-end a:hover{
     color: #3273dc;
+}
+
+.navbar-dropdown .navbar-item{
+    color: black;
 }
 
 .navbar-start li:hover{

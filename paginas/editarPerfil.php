@@ -36,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form method="post" id="formEditarUsuario">
                 <div class="field">
                     <label class="label">Correo</label>
-                    <input type="text" class="input" id="correo" name="correo" value="<?= htmlentities($user->getCorreo()) ?>" disabled="true"/>
+                    <input type="text" class="input" id="correo" name="correo" value="<?= htmlentities($user->getCorreo()) ?>" readonly="true"/>
                     <p class="help" id="infoCorreo"></p>
                 </div>
                 <div class="field">
                     <label class="label">D.N.I.</label>
-                    <input type="text" class="input" id="dni" name="dni" value="<?= htmlentities($user->getDni()) ?>" disabled="true"/>
+                    <input type="text" class="input" id="dni" name="dni" value="<?= htmlentities($user->getDni()) ?>" readonly="true"/>
                     <p class="help" id="infoDni"></p>
                 </div>
                 <div class="field">

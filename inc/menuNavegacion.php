@@ -16,7 +16,15 @@ if (isset($_SESSION['id_usuario'])) {
     </ul>
     <div class="navbar-end">
         <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
-            <span>Bienvenido <a href="editarPerfil"><?= htmlentities($usuarioNav->getCorreo()) ?></a></span>
+            Bienvenido 
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link"><?= htmlentities($usuarioNav->getCorreo()) ?></a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="cambioPassword">Cambiar contrase&ntilde;a</a>
+                    <a class="navbar-item" href="editarPerfil">Editar perfil</a>
+                </div>
+            </div>
             <a href="logout" class="button is-info">Salir</a>
         <?php else : ?>
             <a href="login">Loguearse</a><label>&nbsp; o &nbsp;</label>
