@@ -47,7 +47,13 @@ if (isset($_SESSION['id_usuario'])) {
                                 <?= htmlentities($articulo->getTitulo()) ?>
                             <?php endif; ?>
                         </p>
-                        <p>Fecha: <?= htmlentities($articulo->getFecha()) ?></p>
+                        
+                        <?php 
+                            $time = strtotime($articulo->getFecha());
+                            $fecha = date('d/m/Y - H:i:s', $time);
+                        ?>
+                        
+                        <p>Fecha: <?= htmlentities($fecha) ?></p>
                         <p>Texto: <?= htmlentities($articulo->getTexto()) ?></p>
                         <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
                     </div>

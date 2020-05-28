@@ -65,7 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="bloqueDetallesArticulo">
             <div>
                 <p class="field"><label class="label">T&iacute;tulo</label><?= htmlentities($articulo->getTitulo()) ?></p>
-                <p class="field"><label class="label">Fecha</label><?= htmlentities($articulo->getFecha()) ?></p>
+                <?php
+                $time = strtotime($articulo->getFecha());
+                $fecha = date('d/m/Y - H:i:s', $time);
+                ?>
+                <p class="field"><label class="label">Fecha</label><?= $fecha ?></p>
                 <p class="field"><label class="label">Texto</label><?= htmlentities($articulo->getTexto()) ?></p>
             </div>
             <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
@@ -89,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- OBTENER RESPUESTAS A ESTE COMENTARIO-->
                             <?php $respuestas = Comentario::obtenerRespuestasPorIdComentario($db, $comentario->getId()) ?>
-                            
+
                             <?php if (!empty($respuestas)): ?>
                                 <label class="label">RESPUESTAS</label>
                                 <?php foreach ($respuestas as $respuesta): ?>
