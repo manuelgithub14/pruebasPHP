@@ -43,6 +43,16 @@ switch ($pagina) {
         break; 
 }
 
+$datos = [
+    'ip' => $_SERVER['REMOTE_ADDR'],
+    'urlSolicitada' => $_SERVER['REQUEST_URI'],
+    'idUsuario' => isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : '',
+    'userAgent' => $_SERVER['HTTP_USER_AGENT'],
+    'urlReferencia' => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : ''
+];
+$usoWeb = new UsoWeb($datos);
+$usoWeb->guardar($db);
+
 $body = ob_get_clean();
 
 require '../template.php';
