@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['correo'])) {
         if (!empty($_GET['email']) && !empty($_GET['token'])) {
             $user = Usuario::obtenerUsuarioPorCorreo($db, $_GET['email']);
-            
+
             if ($user->getToken() === $_GET['token']) {
                 if (!empty($_POST['passNuevo']) && !empty($_POST['passRepNuevo'])) {
                     $result = Usuario::restablecerContraseña($db, $_GET['email'], $_POST['passNuevo'], $_POST['passRepNuevo']);
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = Usuario::obtenerUsuarioPorCorreo($db, $_POST['correo']);
 
         $datos = [
-            'mensajero' => 'manueljesusmb@gmail.com',
+            'mensajero' => 'cuentapruebas757@gmail.com',
             'nombreMensajero' => 'Manuel J',
             'destinatario' => $user->getCorreo(),
             'asunto' => 'Recuperar contraseña',
@@ -90,5 +90,5 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
 <?php endif; ?>
 
 <?php if (!empty($mensaje)): ?>
-<p class="mensaje"><?= $mensaje ?></p>
+    <p class="mensaje"><?= $mensaje ?></p>
 <?php endif; ?>

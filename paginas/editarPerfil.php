@@ -10,10 +10,10 @@ if (isset($_SESSION['id_usuario'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (!empty($_POST['edad']) && !empty($_POST['correo']) && !empty($_POST['dni'])) {
+    if (!empty($_POST['fecha']) && !empty($_POST['correo']) && !empty($_POST['dni'])) {
         
         if ($user->getCorreo() === $_POST['correo'] && $user->getDni() === $_POST['dni']) {
-            $user->setEdad($_POST['edad']);
+            $user->setFechaNacimiento($_POST['fecha']);
             
             if ($user->guardar($db)) {
                 $mensaje = 'Datos actualizados';
@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p class="help" id="infoDni"></p>
                 </div>
                 <div class="field">
-                    <label class="label">Edad</label>
-                    <input type="text" class="input" id="edad" name="edad" value="<?= htmlentities($user->getEdad()) ?>"/>
-                    <p class="help" id="infoEdad"></p>
+                    <label class="label">Fecha nacimiento</label>
+                    <input type="date" class="input" id="fecha" name="fecha" value="<?= htmlentities($user->getFechaNacimiento()) ?>"/>
+                    <p class="help" id="infoFecha"></p>
                 </div>
                 <input type="submit" class="button is-danger" id="btnEditarUsuario" value="Actualizar"/>
             </form>

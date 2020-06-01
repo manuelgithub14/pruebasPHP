@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include '../inc/menuNavegacion.php'; ?>
 <?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
-    <p>Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
+    <p class="mensaje">Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
 <?php elseif (!empty($_GET['faltaActivar'])) : ?>
-    <p>Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
+    <p class="mensaje">Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
 <?php endif; ?>
 <h1>Logueate</h1>
 

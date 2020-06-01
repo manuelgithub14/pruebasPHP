@@ -5,11 +5,11 @@ $cssPersonalizado = '';
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['correo']) && !empty($_POST['password']) && !empty($_POST['dni']) && !empty($_POST['edad']) && is_numeric($_POST['edad'])) {
+    if (!empty($_POST['correo']) && !empty($_POST['password']) && !empty($_POST['dni']) && !empty($_POST['fecha'])) {
         $nuevoCorreo = $_POST['correo'];
         $nuevoPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $nuevoDni = $_POST['dni'];
-        $nuevaEdad = $_POST['edad'];
+        $nuevaFecha = $_POST['fecha'];
 
         $user = Usuario::obtenerUsuarioPorCorreo($db, $nuevoCorreo);
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'correo' => $nuevoCorreo,
                 'password' => $nuevoPassword,
                 'dni' => $nuevoDni,
-                'edad' => $nuevaEdad,
+                'fechaNacimiento' => $nuevaFecha,
                 'tipo' => null,
                 'token' => bin2hex(random_bytes(10))
             ];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nuevoUser->guardar($db);
 
             $datosCorreo = [
-                'mensajero' => 'manueljesusmb@gmail.com',
+                'mensajero' => 'cuentapruebas757@gmail.com',
                 'nombreMensajero' => 'Manuel J',
                 'destinatario' => $nuevoUser->getCorreo(),
                 'asunto' => 'Confirmar registro',
@@ -70,9 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="help" id="infoDni"></p>
         </div>
         <div class="field">
-            <label class="label">Edad</label>
-            <input type="text" class="input" name="edad"/>
-            <p class="help" id="infoEdad"></p>
+            <label class="label">Fecha nacimiento</label>
+            <input type="date" class="input" name="fecha"/>
+            <p class="help" id="infoFecha"></p>
         </div>
         <input type="submit" class="button is-danger" id="btnGuardar" value="Guardar"/>
     </form>

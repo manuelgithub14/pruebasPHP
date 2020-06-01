@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (miForm) {
         var miPassword = miForm.querySelector("input[type='password']");
+        var miFecha = miForm.querySelector("input[type='date']");
         var misInputsText = miForm.querySelectorAll("input[type='text']");
         var infoCorreo = document.getElementById("infoCorreo");
         var infoPassword = document.getElementById("infoPassword");
         var infoDni = document.getElementById("infoDni");
-        var infoEdad = document.getElementById("infoEdad");
+        var infoFecha = document.getElementById("infoFecha");
         var correoContieneDanger = "";
         var dniContieneDanger = "";
-        var edadContieneDanger = "";
 
         miForm.addEventListener("submit", function (e) {
             if (miPassword.value === "") {
@@ -25,6 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 infoPassword.classList.remove("is-danger");
 
                 miPassword.classList.add("is-success");
+            }
+
+            if (!validarFormatoFecha(miFecha.value) || !existeFecha(miFecha.value)) {
+                miFecha.classList.remove("is-success");
+
+                miFecha.classList.add("is-danger");
+                infoFecha.textContent = "Fecha inv\u00e1lida";
+                infoFecha.classList.add("is-danger");
+            } else {
+                miFecha.classList.remove("is-danger");
+                infoFecha.textContent = "";
+                infoFecha.classList.remove("is-danger");
+
+                miFecha.classList.add("is-success");
             }
 
             for (let i = 0; i < misInputsText.length; i++) {
@@ -63,30 +77,30 @@ document.addEventListener("DOMContentLoaded", function () {
                             dniContieneDanger = true;
                         }
                         break;
-                    case "edad":
-                        if (isNaN(misInputsText[i].value) || misInputsText[i].value === "") {
-                            misInputsText[i].classList.remove("is-success");
-
-                            misInputsText[i].classList.add("is-danger");
-                            infoEdad.textContent = "Edad inv\u00e1lida";
-                            infoEdad.classList.add("is-danger");
-                            edadContieneDanger = true;
-                        } else {
-                            misInputsText[i].classList.remove("is-danger");
-                            infoEdad.textContent = "";
-                            infoEdad.classList.remove("is-danger");
-
-                            misInputsText[i].classList.add("is-success");
-                            edadContieneDanger = false;
-                        }
-                        break;
                 }
             }
 
-            if (correoContieneDanger || miPassword.classList.contains("is-danger") || 
-                    dniContieneDanger || edadContieneDanger ) {
+            if (correoContieneDanger || miPassword.classList.contains("is-danger") ||
+                    dniContieneDanger || miFecha.classList.contains("is-danger")) {
                 e.preventDefault();
             }
         });
     }
 });
+
+function validarFormatoFecha(campo) {
+    var RegExPattern = /^\d{2,4}-\d{1,2}-\d{1,2}$/;
+    if ((campo.match(RegExPattern)) && (campo !== '')) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function existeFecha(fecha) {
+    var fechaf = fecha.split("-");
+    var d = fechaf[2];
+    var m = fechaf[1];
+    var y = fechaf[0];
+    return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+}

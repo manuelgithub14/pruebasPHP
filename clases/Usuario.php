@@ -6,7 +6,7 @@ class Usuario {
     private $correo;
     private $password;
     private $dni;
-    private $edad;
+    private $fechaNacimiento;
     private $tipo;
     private $activado;
     private $token;
@@ -42,8 +42,8 @@ class Usuario {
         return $this->dni;
     }
 
-    public function getEdad() {
-        return $this->edad;
+    public function getFechaNacimiento() {
+        return $this->fechaNacimiento;
     }
 
     public function getTipo() {
@@ -71,8 +71,8 @@ class Usuario {
         $this->dni = $dni;
     }
 
-    public function setEdad($edad) {
-        $this->edad = $edad;
+    public function setFechaNacimiento($fecha) {
+        $this->fechaNacimiento = $fecha;
     }
 
     public function setTipo($tipo) {
@@ -84,12 +84,12 @@ class Usuario {
         $correo = $db->real_escape_string($this->correo);
         $password = $db->real_escape_string($this->password);
         $dni = $db->real_escape_string($this->dni);
-        $edad = $db->real_escape_string($this->edad);
+        $fecha = $db->real_escape_string($this->fechaNacimiento);
         $id = $db->real_escape_string($this->id);
         $token = $db->real_escape_string($this->token);
 
         $consulta = (empty($this->id) ? "INSERT INTO" : "UPDATE" ) .
-                " usuarios SET correo = '$correo',password = '$password',dni = '$dni',edad = '$edad',token = '$token'" .
+                " usuarios SET correo = '$correo',password = '$password',dni = '$dni',fechaNacimiento = '$fecha',token = '$token'" .
                 (empty($this->id) ? "" : " WHERE id_usuario = $id" );
 
         $resultado = $db->query($consulta);
