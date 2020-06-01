@@ -25,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $user = Usuario::obtenerUsuarioPorCorreo($db, $_POST['correo']);
 
-        (SERVIDOR == '127.0.0.1') ? $rutaServidor = 'http://' : $rutaServidor = 'https://';
+        (SERVIDOR == '127.0.0.1') ? $rutaServidor = 'http://localhost' : $rutaServidor = 'https://pruebasphp123.herokuapp.com';
         
         $datos = [
             'mensajero' => 'cuentapruebas757@gmail.com',
             'nombreMensajero' => 'Manuel J',
             'destinatario' => $user->getCorreo(),
             'asunto' => 'Recuperar contraseña',
-            'mensaje' => '<a href="' . $rutaServidor . SERVIDOR . '/recuperarPassword?email=' . $user->getCorreo() . '&token=' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
+            'mensaje' => '<a href="' . $rutaServidor . '/recuperarPassword?email=' . $user->getCorreo() . '&token=' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
             'archivoAdjunto' => 'recursos/imagen.png',
         ];
         $correo = new Correo($datos);
