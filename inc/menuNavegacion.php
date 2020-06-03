@@ -11,6 +11,14 @@ if (isset($_SESSION['id_usuario'])) {
         <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
             <?php if ($usuarioNav->getTipo() === 'admin'): ?>
                 <li class="navbar-item"><a href = "nuevoArticulo">Crear Art&iacute;culos</a></li>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <li class="navbar-link"><a>Estad&iacute;sticas</a></li>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="visitasPagina">Visitas por p&aacute;gina</a>
+                        <a class="navbar-item" href="usoNavegadores">Uso navegadores</a>
+                    </div>
+                </div>
             <?php endif; ?>
         <?php endif; ?>
     </ul>

@@ -1,6 +1,7 @@
 {
     "name": "manueljesus.maldonad",
     "require": {
-        "phpmailer/phpmailer": "~6.1"
+        "phpmailer/phpmailer": "~6.1",
+        "whichbrowser/parser": "^2.0"
     }
 }

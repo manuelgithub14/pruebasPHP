@@ -118,4 +118,43 @@ class UsoWeb {
         }
     }
 
+    public static function obtenerVisitasPaginasEntreFechas($db, $fechaIni, $fechaFin) {
+        $result = $db->query("SELECT COUNT(url_solicitada) AS numVisitas, SUBSTRING_INDEX(url_solicitada,'?',1) AS pagina "
+                . "FROM usoweb WHERE fecha_hora BETWEEN '$fechaIni' AND '$fechaFin' GROUP BY pagina");
+        $paginas = [];
+
+        if ($result) {
+            while ($paginaVisitada = mysqli_fetch_assoc($result)) {
+                $infoVisitas = new stdClass();
+                
+                $infoVisitas->pagina = $paginaVisitada['pagina'];
+                $infoVisitas->numVisitas = $paginaVisitada['numVisitas'];
+                
+                array_push($paginas, $infoVisitas);
+            }
+            return $paginas;
+        } else {
+            return false;
+        }
+    }
+    
+    public static function obtenerUsoNavegadores($db) {
+        $result = $db->query("SELECT COUNT(user_agent) AS numUso, user_agent AS navegador FROM usoweb GROUP BY user_agent");
+        $navegadores = [];
+
+        if ($result) {
+            while ($unNavegador = mysqli_fetch_assoc($result)) {
+                $infoNavegadores = new stdClass();
+                $traduccionNavegador = new WhichBrowser\Parser($unNavegador['navegador']);
+                
+                $infoNavegadores->navegador = $traduccionNavegador->browser->toString();
+                $infoNavegadores->numUso = $unNavegador['numUso'];
+                
+                array_push($navegadores, $infoNavegadores);
+            }
+            return $navegadores;
+        } else {
+            return false;
+        }
+    }
 }
