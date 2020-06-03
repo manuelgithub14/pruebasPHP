@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_POST['fechaIni']) && !empty($_POST['fechaFin'])) {
         $fechas->inicio = $_POST['fechaIni'];
-        $fechas->final = $_POST['fechaFin'] . ' 23:59:59';
-        $arrayPaginas = UsoWeb::obtenerVisitasPaginasEntreFechas($db, $fechas->inicio, $fechas->final);
+        $fechas->final = $_POST['fechaFin'];
+        $arrayPaginas = UsoWeb::obtenerVisitasPaginasEntreFechas($db, $fechas->inicio, $fechas->final . ' 23:59:59');
         $verGrafica = true;
     }
 }
