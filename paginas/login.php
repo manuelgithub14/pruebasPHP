@@ -41,31 +41,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
-<?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
-    <p class="mensaje">Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
-<?php elseif (!empty($_GET['faltaActivar'])) : ?>
-    <p class="mensaje">Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
-<?php endif; ?>
-<h1>Logueate</h1>
+<main>
+    <section>
+        <?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
+            <p class="mensaje">Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
+        <?php elseif (!empty($_GET['faltaActivar'])) : ?>
+            <p class="mensaje">Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
+        <?php endif; ?>
+        <h1>Logueate</h1>
 
-<?php if (!empty($mensaje)): ?>
-    <p class="mensaje"><?= $mensaje ?></p>
-<?php endif; ?>
+        <?php if (!empty($mensaje)): ?>
+            <p class="mensaje"><?= $mensaje ?></p>
+        <?php endif; ?>
 
-<div class="secundario">
-    <form method="post" id="formLogin" >
-        <div class="field">
-            <label class="label">Correo</label>
-            <input type="text" class="input" name="correo" autofocus="true"/>
-            <p class="help" id="infoCorreo"></p>
+        <div class="secundario">
+            <form method="post" id="formLogin" >
+                <div class="field">
+                    <label class="label">Correo</label>
+                    <input type="text" class="input" name="correo" autofocus="true"/>
+                    <p class="help" id="infoCorreo"></p>
+                </div>
+                <div class="field">
+                    <label class="label">Contrase&ntilde;a</label>
+                    <input type="password" class="input" name="password"/>
+                    <p class="help" id="infoPassword"></p>
+                </div>
+
+                <input type="submit" class="button is-danger" id="btnSubmitLogin" value="Entrar"/>
+            </form>
         </div>
-        <div class="field">
-            <label class="label">Contrase&ntilde;a</label>
-            <input type="password" class="input" name="password"/>
-            <p class="help" id="infoPassword"></p>
-        </div>
-
-        <input type="submit" class="button is-danger" id="btnSubmitLogin" value="Entrar"/>
-    </form>
-</div>
-<h2><a href="recuperarPassword">Recuperar contrase&ntilde;a</a></h2>
+        <h2><a href="recuperarPassword">Recuperar contrase&ntilde;a</a></h2>
+    </section>
+</main>

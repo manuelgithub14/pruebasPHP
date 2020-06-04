@@ -25,21 +25,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $user = Usuario::obtenerUsuarioPorCorreo($db, $_POST['correo']);
 
-        (SERVIDOR == '127.0.0.1') ? $rutaServidor = 'http://localhost' : $rutaServidor = 'https://pruebasphp123.herokuapp.com';
-        
-        $datos = [
-            'mensajero' => 'cuentapruebas757@gmail.com',
-            'nombreMensajero' => 'Manuel J',
-            'destinatario' => $user->getCorreo(),
-            'asunto' => 'Recuperar contraseña',
-            'mensaje' => '<a href="' . $rutaServidor . '/recuperarPassword?email=' . $user->getCorreo() . '&token=' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
-            'archivoAdjunto' => 'recursos/imagen.png',
-        ];
-        $correo = new Correo($datos);
-        if ($correo->enviar()) {
-            $mensaje = 'Mensaje enviado!';
+        if ($user) {
+            (SERVIDOR == '127.0.0.1') ? $rutaServidor = 'http://localhost' : $rutaServidor = 'https://pruebasphp123.herokuapp.com';
+
+            $datos = [
+                'mensajero' => 'cuentapruebas757@gmail.com',
+                'nombreMensajero' => 'Manuel J',
+                'destinatario' => $user->getCorreo(),
+                'asunto' => 'Recuperar contraseña',
+                'mensaje' => '<a href="' . $rutaServidor . '/recuperarPassword?email=' . $user->getCorreo() . '&token=' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
+                'archivoAdjunto' => 'recursos/imagen.png',
+            ];
+            $correo = new Correo($datos);
+            if ($correo->enviar()) {
+                $mensaje = 'Mensaje enviado!';
+            } else {
+                $mensaje = 'Error al enviar el mensaje';
+            }
         } else {
-            $mensaje = 'Error al enviar el mensaje';
+            $mensaje = 'Este correo no existe';
         }
     }
 }
@@ -56,41 +60,45 @@ if (!empty($_GET['email']) && !empty($_GET['token'])) {
 ?>
 
 <?php include '../inc/menuNavegacion.php'; ?>
-<h1>Recuperar contrase&ntilde;a</h1>
-<?php if ($permisoRecuperar): ?>
-    <div class="secundario">
-        <form method="post" id="formRecuperarPass">
-            <h1>Cambiar contrase&ntilde;a</h1>
-            <div class="camposForm">
-                <div class="field">
-                    <label class="label">Contrase&ntilde;a nueva</label>
-                    <input type="password" class="input" name="passNuevo" id="passNuevo"/>
-                    <p class="help" id="infoPasswordNuevo"></p>
-                </div>
-                <div class="field">
-                    <label class="label">Repita contrase&ntilde;a nueva</label>
-                    <input type="password" class="input" name="passRepNuevo" id="passNuevoRep"/>
-                    <p class="help" id="infoPasswordNuevoRep"></p>
-                </div>
+<main>
+    <section>
+        <h1>Recuperar contrase&ntilde;a</h1>
+        <?php if ($permisoRecuperar): ?>
+            <div class="secundario">
+                <form method="post" id="formRecuperarPass">
+                    <h1>Cambiar contrase&ntilde;a</h1>
+                    <div class="camposForm">
+                        <div class="field">
+                            <label class="label">Contrase&ntilde;a nueva</label>
+                            <input type="password" class="input" name="passNuevo" id="passNuevo"/>
+                            <p class="help" id="infoPasswordNuevo"></p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Repita contrase&ntilde;a nueva</label>
+                            <input type="password" class="input" name="passRepNuevo" id="passNuevoRep"/>
+                            <p class="help" id="infoPasswordNuevoRep"></p>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-danger" id="btnRecuperarPass" value="Cambiar contraseña"/>
+                </form>
             </div>
-            <input type="submit" class="button is-danger" id="btnRecuperarPass" value="Cambiar contraseña"/>
-        </form>
-    </div>
-<?php else: ?>
-    <div class="secundario">
-        <form method="post" id="formCorreo">
-            <div class="camposForm">
-                <div class="field">
-                    <label class="label">Correo</label>
-                    <input type="text" class="input" name="correo" id="correo"/>
-                    <p class="help" id="infoCorreo"></p>
-                </div>
+        <?php else: ?>
+            <div class="secundario">
+                <form method="post" id="formCorreo">
+                    <div class="camposForm">
+                        <div class="field">
+                            <label class="label">Correo</label>
+                            <input type="text" class="input" name="correo" id="correo"/>
+                            <p class="help" id="infoCorreo"></p>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-danger" id="btnRecuperarCorreo" value="Enviar"/>
+                </form>
             </div>
-            <input type="submit" class="button is-danger" id="btnRecuperarCorreo" value="Enviar"/>
-        </form>
-    </div>
-<?php endif; ?>
+        <?php endif; ?>
 
-<?php if (!empty($mensaje)): ?>
-    <p class="mensaje"><?= $mensaje ?></p>
-<?php endif; ?>
+        <?php if (!empty($mensaje)): ?>
+            <p class="mensaje"><?= $mensaje ?></p>
+        <?php endif; ?>
+    </section>
+</main>
