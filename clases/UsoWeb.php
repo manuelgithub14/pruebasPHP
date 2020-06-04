@@ -138,6 +138,26 @@ class UsoWeb {
         }
     }
     
+    public static function obtenerDetalleVisitaPaginaEntreFechas($db, $fechaIni, $fechaFin, $pagina) {
+        $result = $db->query("SELECT COUNT(url_solicitada) AS numVisitas, DATE_FORMAT(fecha_hora, '%d-%m-%Y') AS fecha "
+                . "FROM usoweb WHERE url_solicitada LIKE '$pagina%' AND fecha_hora BETWEEN '$fechaIni' AND '$fechaFin' GROUP BY fecha");
+        $fechas = [];
+
+        if ($result) {
+            while ($fechaVisita = mysqli_fetch_assoc($result)) {
+                $infoVisitas = new stdClass();
+                
+                $infoVisitas->fecha = $fechaVisita['fecha'];
+                $infoVisitas->numVisitas = $fechaVisita['numVisitas'];
+                
+                array_push($fechas, $infoVisitas);
+            }
+            return $fechas;
+        } else {
+            return false;
+        }
+    }
+    
     public static function obtenerUsoNavegadores($db) {
         $result = $db->query("SELECT COUNT(user_agent) AS numUso, user_agent AS navegador FROM usoweb GROUP BY user_agent");
         $navegadores = [];

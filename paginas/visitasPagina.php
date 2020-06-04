@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 $titulo = 'Visitas por p&aacute;ginas';
 $script = '/js/visitasPagina.js';
 $cssPersonalizado = '';
@@ -14,6 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fechas->final = $_POST['fechaFin'];
         $arrayPaginas = UsoWeb::obtenerVisitasPaginasEntreFechas($db, $fechas->inicio, $fechas->final . ' 23:59:59');
         $verGrafica = true;
+    }
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    if (!empty($_GET['fechaIni']) && !empty($_GET['fechaFin']) && !empty($_GET['pagina'])) {
+        $arrayFechas = UsoWeb::obtenerDetalleVisitaPaginaEntreFechas($db, $_GET['fechaIni'], $_GET['fechaFin'] . ' 23:59:59', $_GET['pagina']);
+        ob_clean();
+        echo json_encode($arrayFechas);
+        exit();
     }
 }
 ?>
@@ -40,14 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <?php if ($verGrafica): ?>
                 <canvas id="canvasGrafica" width="200" height="200"></canvas>
+                <canvas id="canvasGrafica2" width="200" height="200"></canvas>
             <?php endif; ?>
         </div>
 
         <?php if (!empty($mensaje)): ?>
             <p class="mensaje"><?= $mensaje ?></p>
         <?php endif; ?>
-
-
     </section>
 </main>
 
