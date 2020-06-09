@@ -30,5 +30,19 @@
         <footer class="navbar is-danger">
             <p>Aplicaci&oacute;n con PHP</p>
         </footer>
+        <script type="text/javascript">
+            (function (){
+                var burger = document.querySelector(".burger");
+                var nav = document.querySelector("#" + burger.dataset.target);
+                var enlaces = document.querySelectorAll(".navbar-menu a");
+                
+                burger.addEventListener("click", function (){
+                    burger.classList.toggle("is-active");
+                    nav.classList.toggle("is-active");
+                    //nav.style.color = "black";
+                    nav.style.backgroundColor = "#f14668";
+                });
+            })();
+        </script>
     </body>
 </html>

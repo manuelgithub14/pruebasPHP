@@ -13,7 +13,7 @@ $navegadores = UsoWeb::obtenerUsoNavegadores($db);
     <section>
         <h1>Uso navegadores</h1>
         <div class="secundario">
-            <canvas id="canvasGrafica" width="200" height="200"></canvas>
+            <canvas id="canvasGrafica"></canvas>
         </div>
 
         <?php if (!empty($mensaje)): ?>
