@@ -82,63 +82,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- OBTENER USUARIO DE ESTE COMENTARIO-->
                     <?php $usuario = Usuario::obtenerUsuarioPorID($db, $comentario->getIdUsuario()) ?>
+
                     <span id="errores"></span>
-                    <div class="comentar" >
-                        <form id="formRespuestaResp" method="POST">
-                            <label class="label">COMENTARIO</label>
-                            <p class="textoComentarios">
-                                <label class="label"><?= htmlentities($usuario->getCorreo()) ?></label>
-                                <label><?= htmlentities($comentario->getTexto()) ?></label>
-                            </p>
+                    <?php if ($usuario): ?>
+                        <div class="comentar" >
+                            <form id="formRespuestaResp" method="POST">
+                                <label class="label">COMENTARIO</label>
+                                <p class="textoComentarios">
+                                    <label class="label"><?= htmlentities($usuario->getCorreo()) ?></label>
+                                    <label><?= htmlentities($comentario->getTexto()) ?></label>
+                                </p>
 
-                            <!-- OBTENER RESPUESTAS A ESTE COMENTARIO-->
-                            <?php $respuestas = Comentario::obtenerRespuestasPorIdComentario($db, $comentario->getId()) ?>
+                                <!-- OBTENER RESPUESTAS A ESTE COMENTARIO-->
+                                <?php $respuestas = Comentario::obtenerRespuestasPorIdComentario($db, $comentario->getId()) ?>
 
-                            <?php if (!empty($respuestas)): ?>
-                                <label class="label">RESPUESTAS</label>
-                                <?php foreach ($respuestas as $respuesta): ?>
-
-                                    <!-- OBTENER USUARIO DE ESTA RESPUESTA -->
-                                    <?php $usuarioResponde = Usuario::obtenerUsuarioPorID($db, $respuesta->getIdUsuario()) ?>
-                                    <p class="textoComentarios">
-                                        <label class="label"><?= htmlentities($usuarioResponde->getCorreo()) ?></label>
-                                        <label><?= htmlentities($respuesta->getTexto()) ?></label>
-                                    </p>
-
-                                    <!-- OBTENER RESPUESTAS DE ESTA RESPUESTA -->
-                                    <?php $respuestasRespondidas = Comentario::obtenerRespuestasPorIdComentario($db, $respuesta->getId()) ?>
-                                    <?php foreach ($respuestasRespondidas as $respuestaRes): ?>
+                                <?php if (!empty($respuestas)): ?>
+                                    <label class="label">RESPUESTAS</label>
+                                    <?php foreach ($respuestas as $respuesta): ?>
 
                                         <!-- OBTENER USUARIO DE ESTA RESPUESTA -->
-                                        <?php $usuarioRespondeRes = Usuario::obtenerUsuarioPorID($db, $respuestaRes->getIdUsuario()) ?>
+                                        <?php $usuarioResponde = Usuario::obtenerUsuarioPorID($db, $respuesta->getIdUsuario()) ?>
                                         <p class="textoComentarios">
-                                            <label class="label"><?= htmlentities($usuarioRespondeRes->getCorreo()) ?></label>
-                                            <label><?= htmlentities($respuestaRes->getTexto()) ?></label>
+                                            <label class="label"><?= htmlentities($usuarioResponde->getCorreo()) ?></label>
+                                            <label><?= htmlentities($respuesta->getTexto()) ?></label>
                                         </p>
 
+                                        <!-- OBTENER RESPUESTAS DE ESTA RESPUESTA -->
+                                        <?php $respuestasRespondidas = Comentario::obtenerRespuestasPorIdComentario($db, $respuesta->getId()) ?>
+                                        <?php foreach ($respuestasRespondidas as $respuestaRes): ?>
+
+                                            <!-- OBTENER USUARIO DE ESTA RESPUESTA -->
+                                            <?php $usuarioRespondeRes = Usuario::obtenerUsuarioPorID($db, $respuestaRes->getIdUsuario()) ?>
+                                            <p class="textoComentarios">
+                                                <label class="label"><?= htmlentities($usuarioRespondeRes->getCorreo()) ?></label>
+                                                <label><?= htmlentities($respuestaRes->getTexto()) ?></label>
+                                            </p>
+
+                                        <?php endforeach; ?>
+
+                                        <!-- PERMITIR RESPONDER A QUIEN NO HIZO LA RESPUESTA -->
+                                        <?php if ($_SESSION['id_usuario'] !== $respuesta->getIdUsuario()): ?>
+                                            <input type="hidden" name="idRespuesta" value="<?= $respuesta->getId() ?>"/>
+                                            <textarea name="textoRespuestaRes" class="textarea" rows="4" cols="60" maxlength="255" id="textRespuestaResp"></textarea>
+                                            <p class="help" id="infoRespuestaResp"></p>
+                                            <input type="submit" class="button is-danger" value="Responder" id="btnResponderRespuesta"/>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
-
-                                    <!-- PERMITIR RESPONDER A QUIEN NO HIZO LA RESPUESTA -->
-                                    <?php if ($_SESSION['id_usuario'] !== $respuesta->getIdUsuario()): ?>
-                                        <input type="hidden" name="idRespuesta" value="<?= $respuesta->getId() ?>"/>
-                                        <textarea name="textoRespuestaRes" class="textarea" rows="4" cols="60" maxlength="255" id="textRespuestaResp"></textarea>
-                                        <p class="help" id="infoRespuestaResp"></p>
-                                        <input type="submit" class="button is-danger" value="Responder" id="btnResponderRespuesta"/>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </form>
-
-                        <!-- PERMITIR RESPONDER A QUIEN NO HIZO EL COMENTARIO -->
-                        <?php if ($_SESSION['id_usuario'] !== $comentario->getIdUsuario()): ?>
-                            <form id="formRespuestaComentario" method="POST">
-                                <input type="hidden" name="idComentario" value="<?= $comentario->getId() ?>"/>
-                                <textarea name="textoRespuesta" class="textarea" rows="4" cols="60" maxlength="255" id="textRespuesta"></textarea>
-                                <p class="help" id="infoRespuesta"></p>
-                                <input type="submit" class="button is-danger" value="Responder" id="btnResponderComentario"/>
+                                <?php endif; ?>
                             </form>
-                        <?php endif; ?>
-                    </div>
+
+                            <!-- PERMITIR RESPONDER A QUIEN NO HIZO EL COMENTARIO -->
+                            <?php if ($_SESSION['id_usuario'] !== $comentario->getIdUsuario()): ?>
+                                <form id="formRespuestaComentario" method="POST">
+                                    <input type="hidden" name="idComentario" value="<?= $comentario->getId() ?>"/>
+                                    <textarea name="textoRespuesta" class="textarea" rows="4" cols="60" maxlength="255" id="textRespuesta"></textarea>
+                                    <p class="help" id="infoRespuesta"></p>
+                                    <input type="submit" class="button is-danger" value="Responder" id="btnResponderComentario"/>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
 
