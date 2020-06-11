@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nombreMensajero' => 'Manuel J',
                 'destinatario' => $nuevoUser->getCorreo(),
                 'asunto' => 'Confirmar registro',
-                'mensaje' => '<a href="' . $rutaServidor . '/login?id=' .
-                $nuevoUser->getId() . '&token=' . $nuevoUser->getToken() . '">Pincha aquí para activar tu cuenta</a>',
-                'archivoAdjunto' => 'recursos/imagen.png',
+                'mensaje' => '<a href="' . $rutaServidor . '/login/' .
+                $nuevoUser->getId() . '/' . $nuevoUser->getToken() . '">Pincha aquí para activar tu cuenta</a>',
+                'archivoAdjunto' => '/recursos/imagen.png',
             ];
             $correo = new Correo($datosCorreo);
             if ($correo->enviar()) {
@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mensaje = 'Error al enviar el mensaje';
             }
 
-            header('Location: /login?faltaActivar=1');
+            // ruta login sin activar cuenta
+            header('Location: /login/1');
             exit();
         } else {
             $mensaje = 'Ya est&aacute;s registrado';

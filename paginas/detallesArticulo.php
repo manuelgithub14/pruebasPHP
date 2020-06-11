@@ -3,10 +3,12 @@ $titulo = 'Art&iacute;culo';
 $script = '/js/detallesArticulo.js';
 $cssPersonalizado = '/css/comentarios.css';
 $mensaje = '';
+$idArticulo = '';
 
-if (!empty($_GET['idArticulo'])) {
+if (!empty($path[1])) {
     // OBTENER COMENTARIOS DE ESTE ARTICULO
-    $articulo = Articulo::obtenerArticuloPorId($db, $_GET['idArticulo']);
+    $idArticulo = $path[1];
+    $articulo = Articulo::obtenerArticuloPorId($db, $idArticulo);
     $comentarios = Comentario::obtenerComentariosPorIdArticulo($db, $articulo->getId());
 }
 
@@ -14,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // GUARDAR NUEVO COMENTARIO
     if (!empty($_POST['textoComentario'])) {
         $textoSql = $db->real_escape_string($_POST['textoComentario']);
-        $idArticuloSql = $db->real_escape_string($_GET['idArticulo']);
+        $idArticuloSql = $db->real_escape_string($idArticulo);
 
         $datos = [
             'idUsuario' => $_SESSION['id_usuario'],
@@ -24,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $nuevoComentario = new Comentario($datos);
         if ($nuevoComentario->guardar($db)) {
-            header('Location: /detallesArticulo?idArticulo=' . $_GET['idArticulo']);
+            header('Location: /detallesArticulo/' . $idArticulo);
         } else {
             $mensaje = 'Error al comentar';
         }
     }
     // GUARDAR RESPUESTA, AL COMENTARIO O A OTRA RESPUESTA
     if (!empty($_POST['textoRespuesta']) && !empty($_POST['idComentario']) || !empty($_POST['textoRespuestaRes']) && !empty($_POST['idRespuesta'])) {
-        $idArticuloSql = $db->real_escape_string($_GET['idArticulo']);
+        $idArticuloSql = $db->real_escape_string($idArticulo);
 
         if (!empty($_POST['textoRespuesta']) && !empty($_POST['idComentario'])) {
             $textoSql = $db->real_escape_string($_POST['textoRespuesta']);
@@ -50,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $nuevoComentario = new Comentario($datos);
         if ($nuevoComentario->guardar($db)) {
-            header('Location: /detallesArticulo?idArticulo=' . $_GET['idArticulo']);
+            header('Location: /detallesArticulo/' . $idArticulo);
         } else {
             $mensaje = 'Error al responder';
         }

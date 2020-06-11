@@ -9,8 +9,8 @@ $por_pagina = 2;
 if (!is_bool($articulos)) {
     $total_registros = count($articulos);
 
-    if (isset($_GET['pagina'])) {
-        $pagina = (int) $_GET['pagina'];
+    if (isset($path[1])) {
+        $pagina = (int) $path[1];
     } else {
         $pagina = 1;
     }
@@ -42,7 +42,7 @@ if (isset($_SESSION['id_usuario'])) {
                     <div class="articulo">
                         <p>T&iacute;tulo: 
                             <?php if ($logueado): ?>
-                                <a href="detallesArticulo?idArticulo=<?= $articulo->getId() ?>"><?= htmlentities($articulo->getTitulo()) ?></a>
+                                <a href="/detallesArticulo/<?= $articulo->getId() ?>"><?= htmlentities($articulo->getTitulo()) ?></a>
                             <?php else : ?>
                                 <?= htmlentities($articulo->getTitulo()) ?>
                             <?php endif; ?>
@@ -65,7 +65,7 @@ if (isset($_SESSION['id_usuario'])) {
                 <?php if ($pagina === $i): ?>
                     <a class="pagination-link is-current"><?= $i ?></a>
                 <?php else: ?>
-                    <a class="pagination-link" href='articulos?pagina=<?= $i ?>' ><?= $i ?></a>
+                    <a class="pagination-link" href='/articulos/<?= $i ?>' ><?= $i ?></a>
                 <?php endif; ?>
             <?php endfor; ?>
         </div>

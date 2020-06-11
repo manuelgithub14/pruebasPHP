@@ -3,6 +3,9 @@ $titulo = 'Mi Login';
 $script = '/js/login.js';
 $cssPersonalizado = '';
 $mensaje = '';
+$parametroId = '';
+$parametroToken = '';
+$paramentroFaltaActivar = '';
 
 if (isset($_SESSION['id_usuario'])) {
     header('Location: /');
@@ -24,18 +27,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mensaje = 'Error, datos incorrectos';
         }
     }
-} else if (!empty($_GET['id']) && !empty($_GET['token'])) {
-    $user = Usuario::obtenerUsuarioPorID($db, $_GET['id']);
+} else {
+    if (!empty($path[1]) && !empty($path[2])) {
+        $parametroId = $path[1];
+        $parametroToken = $path[2];
+        
+        $user = Usuario::obtenerUsuarioPorID($db, $parametroId);
 
-    if ($user->getToken() === $_GET['token']) {
-        $result = Usuario::activarCuenta($db, $_GET['id']);
-        if ($result) {
-            $mensaje = 'Cuenta activada';
+        if ($user->getToken() === $parametroToken) {
+            $result = Usuario::activarCuenta($db, $parametroId);
+            if ($result) {
+                $mensaje = 'Cuenta activada';
+            } else {
+                $mensaje = 'Error al activar la cuenta';
+            }
         } else {
-            $mensaje = 'Error al activar la cuenta';
+            $mensaje = 'Error, enlace incorrecto';
         }
-    } else {
-        $mensaje = 'Error, enlace incorrecto';
+    } else if(!empty($path[1])){
+        $paramentroFaltaActivar = $path[1];
     }
 }
 ?>
@@ -43,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php include '../inc/menuNavegacion.php'; ?>
 <main>
     <section>
-        <?php if (!empty($_GET['id']) && !empty($_GET['token'])): ?>
+        <?php if (!empty($parametroId) && !empty($parametroToken)): ?>
             <p class="mensaje">Gracias por activar tu cuenta. Ya puedes iniciar sesi&oacute;n</p>
-        <?php elseif (!empty($_GET['faltaActivar'])) : ?>
+        <?php elseif (!empty($paramentroFaltaActivar)) : ?>
             <p class="mensaje">Gracias por registrarse. Te enviamos un e-mail para activar tu cuenta</p>
         <?php endif; ?>
         <h1>Logueate</h1>
@@ -70,6 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="submit" class="button is-danger" id="btnSubmitLogin" value="Entrar"/>
             </form>
         </div>
-        <h2><a href="recuperarPassword">Recuperar contrase&ntilde;a</a></h2>
+        <h2><a href="/recuperarPassword">Recuperar contrase&ntilde;a</a></h2>
     </section>
 </main>

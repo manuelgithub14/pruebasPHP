@@ -39,7 +39,6 @@
                 burger.addEventListener("click", function (){
                     burger.classList.toggle("is-active");
                     nav.classList.toggle("is-active");
-                    //nav.style.color = "black";
                     nav.style.backgroundColor = "#f14668";
                 });
             })();

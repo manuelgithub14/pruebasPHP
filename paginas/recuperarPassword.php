@@ -4,15 +4,23 @@ $script = '/js/recuperarPassword.js';
 $cssPersonalizado = '';
 $mensaje = '';
 $permisoRecuperar = '';
+$parametroEmail = '';
+$parametroToken = '';
+
+if (!empty($path[1]) && !empty($path[2])) {
+    $parametroEmail = $path[1];
+    $parametroToken = $path[2];
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['correo'])) {
-        if (!empty($_GET['email']) && !empty($_GET['token'])) {
-            $user = Usuario::obtenerUsuarioPorCorreo($db, $_GET['email']);
 
-            if ($user->getToken() === $_GET['token']) {
+        if (!empty($parametroEmail) && !empty($parametroToken)) {
+            $user = Usuario::obtenerUsuarioPorCorreo($db, $parametroEmail);
+
+            if ($user->getToken() === $parametroToken) {
                 if (!empty($_POST['passNuevo']) && !empty($_POST['passRepNuevo'])) {
-                    $result = Usuario::restablecerContraseña($db, $_GET['email'], $_POST['passNuevo'], $_POST['passRepNuevo']);
+                    $result = Usuario::restablecerContraseña($db, $parametroEmail, $_POST['passNuevo'], $_POST['passRepNuevo']);
 
                     if (!empty($result)) {
                         ($result) ? $mensaje = 'Contrase&ntilde;a cambiada.' : $mensaje = 'Las contrase&ntilde;as no coinciden.';
@@ -33,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nombreMensajero' => 'Manuel J',
                 'destinatario' => $user->getCorreo(),
                 'asunto' => 'Recuperar contraseña',
-                'mensaje' => '<a href="' . $rutaServidor . '/recuperarPassword?email=' . $user->getCorreo() . '&token=' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
+                'mensaje' => '<a href="' . $rutaServidor . '/recuperarPassword/' . $user->getCorreo() . '/' . $user->getToken() . '">Pincha aquí para recuperar tu contraseña</a>',
                 'archivoAdjunto' => 'recursos/imagen.png',
             ];
             $correo = new Correo($datos);
@@ -48,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-if (!empty($_GET['email']) && !empty($_GET['token'])) {
-    $user = Usuario::obtenerUsuarioPorCorreo($db, $_GET['email']);
-    if ($user->getToken() === $_GET['token']) {
+if (!empty($parametroEmail) && !empty($parametroToken)) {
+    $user = Usuario::obtenerUsuarioPorCorreo($db, $parametroEmail);
+    if ($user->getToken() === $parametroToken) {
         $permisoRecuperar = true;
     } else {
         $permisoRecuperar = false;

@@ -15,7 +15,7 @@ if ($user->getTipo() === 'admin') {
                 $nuevoTitulo = $_POST['titulo'];
                 $nuevoTexto = strip_tags($_POST['texto']);
                 $nuevaFecha = $_POST['fecha'];
-                $dir_subida = 'recursos/';
+                $dir_subida = '/recursos/';
                 $dirNuevaImagen = $dir_subida . basename($_FILES['imagen']['name']);
 
                 $articulo = Articulo::obtenerArticuloPorTitulo($db, $nuevoTitulo);

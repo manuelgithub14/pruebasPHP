@@ -119,7 +119,7 @@ class UsoWeb {
     }
 
     public static function obtenerVisitasPaginasEntreFechas($db, $fechaIni, $fechaFin) {
-        $result = $db->query("SELECT COUNT(url_solicitada) AS numVisitas, SUBSTRING_INDEX(url_solicitada,'?',1) AS pagina "
+        $result = $db->query("SELECT COUNT(url_solicitada) AS numVisitas, SUBSTRING_INDEX(url_solicitada,'/',2) AS pagina "
                 . "FROM usoweb WHERE fecha_hora BETWEEN '$fechaIni' AND '$fechaFin' GROUP BY pagina");
         $paginas = [];
 
