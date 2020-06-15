@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p class="field"><label class="label">Fecha</label><?= $fecha ?></p>
                 <p class="field"><label class="label">Texto</label><?= htmlentities($articulo->getTexto()) ?></p>
             </div>
-            <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
+            <img class="fotoArticulo" src="/<?= htmlentities($articulo->getImagen()) ?>"/>
         </div>
 
         <!-- COMENTARIOS Y RESPUESTAS-->

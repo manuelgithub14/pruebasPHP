@@ -16,9 +16,11 @@ if (isset($_SESSION['id_usuario'])) {
     <div id="barraNavegacion" class="navbar-menu">
         <ul class="navbar-start">
             <li class="navbar-item"><a href="/articulos/1">Art&iacute;culos</a></li>
+            <li class="navbar-item"><a href="/productos/1">Productos</a></li>
             <?php if (!empty($usuarioNav) && $usuarioNav->getActivado()): ?>
                 <?php if ($usuarioNav->getTipo() === 'admin'): ?>
                     <li class="navbar-item"><a href = "/nuevoArticulo">Crear Art&iacute;culos</a></li>
+                    <li class="navbar-item"><a href = "/nuevoProducto">Crear Productos</a></li>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <li><a class="navbar-link">Estad&iacute;sticas</a></li>
 

@@ -41,6 +41,15 @@ switch ($pagina) {
     case 'usoNavegadores':
         require '../paginas/usoNavegadores.php';
         break;
+    case 'nuevoProducto':
+        require '../paginas/nuevoProducto.php';
+        break;
+    case 'productos':
+        require '../paginas/productos.php';
+        break;
+    case 'detallesProducto':
+        require '../paginas/detallesProducto.php';
+        break;
     case '':
         require '../paginas/inicio.php';
         break;

@@ -1,5 +1,5 @@
 <?php
-$titulo = 'Art&iacute;culo';
+$titulo = 'Art&iacute;culos';
 $script = '';
 $cssPersonalizado = '';
 $mensaje = '';
@@ -55,7 +55,7 @@ if (isset($_SESSION['id_usuario'])) {
                         
                         <p>Fecha: <?= htmlentities($fecha) ?></p>
                         <p>Texto: <?= htmlentities($articulo->getTexto()) ?></p>
-                        <img class="fotoArticulo" src="<?= htmlentities($articulo->getImagen()) ?>"/>
+                        <img class="fotoArticulo" src="/<?= htmlentities($articulo->getImagen()) ?>"/>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

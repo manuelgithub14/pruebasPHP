@@ -95,17 +95,27 @@ canvas{
     min-height: 2.5em;
 }
 
-.fotoArticulo{
+.fotoArticulo, .fotoProducto{
     width: 10em;
 }
 
-.bloqueArticulos{
+.bloqueArticulos, .bloqueProductos{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.articulo{
+.bloqueDetallesProducto{
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+}
+
+.fotoDetalleProducto{
+    width: 20em;
+}
+
+.articulo, .producto{
     margin: 1em;
     padding: 1em;
     border: solid 0.2em red;
@@ -123,6 +133,10 @@ div.ck.ck-reset.ck-editor.ck-rounded-corners{
     width: 30em;
     display: block;
     margin: auto;
+}
+
+#btnComprar{
+    margin-bottom: 1em;
 }
 
 #errores{
