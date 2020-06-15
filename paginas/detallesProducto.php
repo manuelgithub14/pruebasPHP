@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p class="field"><label class="label">T&iacute;tulo</label><?= htmlentities($producto->getTitulo()) ?></p>
                 <p class="field"><label class="label">Referencia</label><?= htmlentities($producto->getReferencia()) ?></p>
                 <p class="field"><label class="label">Descripci&oacute;n</label><?= htmlentities($producto->getDescripcion()) ?></p>
-                <p class="field"><label class="label">Precio</label><?= htmlentities($producto->getPrecio()) ?> €</p>
+                <p class="field"><label class="label">Precio</label><?= number_format(htmlentities($producto->getPrecio()), 2) ?> €</p>
                 <p class="field"><label class="label">Stock</label><?= htmlentities($producto->getStock()) ?> unidades</p>
             </div>
             <img class="fotoDetalleProducto" src="/<?= htmlentities($producto->getImagen()) ?>"/>

@@ -48,7 +48,7 @@ if (isset($_SESSION['id_usuario'])) {
                             <?php endif; ?>
                         </p>
                         <img class="fotoProducto" src="/<?= htmlentities($producto->getImagen()) ?>"/>
-                        <p>Precio: <?= htmlentities($producto->getPrecio()) ?></p>
+                        <p>Precio: <?= number_format(htmlentities($producto->getPrecio()), 2) ?> €</p>
                         <p>Stock: <?= htmlentities($producto->getStock()) ?></p>
                     </div>
                 <?php endforeach; ?>
