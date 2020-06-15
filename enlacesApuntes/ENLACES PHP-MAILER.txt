@@ -1,0 +1,5 @@
+https://github.com/PHPMailer/PHPMailer
+
+https://github.com/PHPMailer/PHPMailer/blob/master/examples/smtp.phps#L6
+
+https://www.hostinger.es/tutoriales/como-usar-el-servidor-smtp-gmail-gratuito/
