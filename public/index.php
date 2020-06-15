@@ -50,6 +50,9 @@ switch ($pagina) {
     case 'detallesProducto':
         require '../paginas/detallesProducto.php';
         break;
+    case 'carrito':
+        require '../paginas/carrito.php';
+        break;
     case '':
         require '../paginas/inicio.php';
         break;

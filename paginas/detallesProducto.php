@@ -5,6 +5,10 @@ $cssPersonalizado = '';
 $mensaje = '';
 $idProducto = '';
 
+if(!isset($_SESSION['carrito'])){
+    $_SESSION['carrito'] = [];
+}
+
 if (!empty($path[1])) {
     $idProducto = $path[1];
     $producto = Producto::obtenerProductoPorId($db, $idProducto);
@@ -12,12 +16,8 @@ if (!empty($path[1])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($producto->getStock() > 0) {
-        $producto->setStock($producto->getStock() - 1);
-        if ($producto->guardar($db)) {
-            $mensaje = 'Compra realizada con &eacute;xito';
-        } else {
-            $mensaje = 'Error al realizar la compra';
-        }
+        $_SESSION['carrito'][] = $producto;
+        $mensaje = 'Producto a&ntilde;adido al carrito';
     } else {
         $mensaje = 'Lo sentimos no hay stock de este producto';
     }
@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
         <form method="POST">
-            <input type="submit" id="btnComprar" class="button is-danger" value="Comprar producto">
+            <input type="submit" id="btnAñadirCarrito" class="button is-danger" value="A&ntilde;adir al carrito">
+            <a href="/carrito" class="button is-info btnInfo">Ver carrito</a>
         </form>
         <?php if (!empty($mensaje)): ?>
             <p class="mensaje"><?= $mensaje ?></p>

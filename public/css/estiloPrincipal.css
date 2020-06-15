@@ -125,6 +125,10 @@ canvas{
     text-align: center;
 }
 
+.btnInfo{
+    margin: 1em;
+}
+
 div.ck.ck-reset.ck-editor.ck-rounded-corners{
     max-width: 25em;
 }

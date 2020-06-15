@@ -19,7 +19,7 @@ define('USUARIO', getenv('USUARIO') ?: 'root');
 define('CLAVE', getenv('CLAVE') ?: '');
 define('NOMBRE_DB', getenv('NOMBRE_DB') ?: 'db_phpproject1');
 
-session_start();
+
 $db = new mysqli(SERVIDOR, USUARIO, CLAVE, NOMBRE_DB);
 
 if (!$db) {
@@ -30,3 +30,5 @@ if (!$db) {
 spl_autoload_register(function ($nombre_clase) {
     include '../clases/' . $nombre_clase . '.php';
 });
+
+session_start();
